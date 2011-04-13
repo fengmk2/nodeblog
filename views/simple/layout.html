@@ -1,0 +1,45 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html> 
+<head> 
+    <title>Node Blog</title> 
+    <meta name="description" content="A simple blog."/> 
+    <meta name="viewport" content="width=770"/> 
+    <link rel="icon" href="/favicon.ico"/> 
+    <link rel="stylesheet" href="/simple/css/main.css"/> 
+</head> 
+<body> 
+    <div id="header"> 
+        <div id="userpanel">Hello, <strong>fengmk2@gmail.com</strong>.
+		        <a href="/">首页</a> 
+		        <span style="color: #ccc;">&bull;</span> 
+             <a href="/blog/new">添加</a> 
+		        <span style="color: #ccc;">&bull;</span> 
+		        <a href="/setting">设置</a> 
+		        <span style="color: #ccc;">&bull;</span> 
+		        <a href="/logout">退出</a> 
+        </div> 
+        <h1 id="logo"> 
+            <a href="/" class="logo">NodeBlog</a> 
+        </h1> 
+        <div id="description">A simple blog system base on <a href="http://nodejs.org" target="_blank">nodejs</a>.</div> 
+    </div> 
+    <div id="content"> 
+				<%- body %>
+    </div> 
+    <div id="footer"> 
+        <a href="/">Index</a> &bull;
+        <a href="/about">About</a> &bull;
+        <a href="/m">Mobile</a> &bull;
+        <a href="/api">API</a> 
+        |
+        Power by
+        <a href="http://nodejs.org" target="_blank">Nodejs</a> &bull;
+        <a href="http://expressjs.org" target="_blank">Expressjs</a> &bull;
+        <a href="http://jquery.com" target="_blank">jQuery</a> &bull;
+        <div style="margin-top: 1em;"> 
+	        &copy;&nbsp;2011 Net4Team.
+	        Contact <a href="http://t.sina.com.cn/imk2">@Python发烧友</a>.
+        </div> 
+    </div>
+</body> 
+</html> 
