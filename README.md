@@ -13,6 +13,13 @@
  
 ## Install
 
+clone from github
+
+    $ git clone https://github.com/fengmk2/nodeblog nodeblog
+    # init support modules
+    $ git submodule init
+    $ git submodule update
+
 ## DIY template 
 
  * http://www.csstemplatesfree.org/templates/a_bit_boxy/index.html
