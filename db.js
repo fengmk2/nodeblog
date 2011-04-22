@@ -86,9 +86,10 @@ Client.prototype.update = function(table, keys, data, callback) {
 	sql = sql.substring(0, sql.length - 1);
 	keys.forEach(function(key) {
 		wheres.push(key + '=?');
+		params.push(data[key]);
 	});
 	sql += ' where ' + wheres.join(' and ');
-	this.query(sql, params.concat(keys), callback);
+	this.query(sql, params, callback);
 };
 
 Client.prototype.get_obj = function(table, key_values, callback) {

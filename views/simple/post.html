@@ -1,0 +1,25 @@
+<script type="text/javascript">
+function delete_post(id) {
+    if(window.confirm('确定要删除此文章吗？')) {
+        $.post('/post/' + id + '/delete', function(result) {
+        	if(result.error) {
+        		alert(result.error);
+        	} else {
+        		window.location = '/';
+        	}
+        });
+    }
+};
+</script>
+
+<div class="extras_section"> 
+    <h2><a href="/post/{{= post.id }}">{{= post.title }}</a></h2> 
+    {{- post.html }}
+    {{ if(current_user) { }}
+    <p>
+        <a href="/post/{{= post.id }}/edit">编辑</a>
+        |
+        <a href="javascript:delete_post('{{= post.id }}');">删除</a>
+    </p>
+    {{ } }}
+</div>

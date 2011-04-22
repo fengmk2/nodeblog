@@ -1,6 +1,8 @@
 -- sql for nodeblog
 
-CREATE TABLE  `nodeblog`.`blog` (
+CREATE DATABASE `nodeblog` DEFAULT CHARSET=utf8;
+
+CREATE TABLE  `nodeblog`.`post` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `title` varchar(500) NOT NULL,
   `content` longtext NOT NULL,

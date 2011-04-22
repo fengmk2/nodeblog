@@ -5,27 +5,34 @@
     <meta name="description" content="A simple blog."/> 
     <meta name="viewport" content="width=770"/> 
     <link rel="icon" href="/favicon.ico"/> 
-    <link rel="stylesheet" href="/simple/css/main.css"/> 
+    <link rel="stylesheet" href="/simple/css/main.css"/>
+    <script src="http://code.jquery.com/jquery-1.5.2.min.js"></script>
 </head> 
 <body> 
     <div id="header"> 
-        <div id="userpanel">Hello, <strong>fengmk2@gmail.com</strong>.
-		        <a href="/">首页</a> 
-		        <span style="color: #ccc;">&bull;</span> 
-             <a href="/blog/new">添加</a> 
-		        <span style="color: #ccc;">&bull;</span> 
-		        <a href="/setting">设置</a> 
-		        <span style="color: #ccc;">&bull;</span> 
-		        <a href="/logout">退出</a> 
+        <div id="userpanel">
+		     <a href="/">首页</a>
+		     {{ if(current_user) { }}
+		     <span style="color: #ccc;">&bull;</span> 
+             <a href="/post/new">添加文章</a> 
+		     <span style="color: #ccc;">&bull;</span> 
+		     <a href="/user/{{= current_user.uid }}">
+                <img style="width: 25px; height: 25px;" src="{{= current_user.profile_image_url}}" />
+                @{{= current_user.screen_name }}
+             </a>
+		     <span style="color: #ccc;">&bull;</span> 
+		     <a href="/logout">退出</a>
+		     {{ } else { }}
+		     <a href="/user">登录</a>
+		     {{ } }}
         </div> 
         <h1 id="logo"> 
             <a href="/" class="logo">NodeBlog</a> 
         </h1> 
-        <div id="description">A simple blog system base on <a href="http://nodejs.org" target="_blank">nodejs</a>.</div> 
+        <div id="description">A simple blog system base on <a href="http://nodejs.org" target="_blank">nodejs</a>.
+        </div> 
     </div> 
-    <div id="content"> 
-				<%- body %>
-    </div> 
+    <div id="content">{{- body }}</div> 
     <div id="footer"> 
         <a href="/">Index</a> &bull;
         <a href="/about">About</a> &bull;
