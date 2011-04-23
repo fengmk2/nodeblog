@@ -1,6 +1,3 @@
 [submodule "support/express-resource"]
 	path = support/express-resource
-	url = https://github.com/visionmedia/express-resource.git
-[submodule "support/exress-resource"]
-	path = support/exress-resource
 	url = git://github.com/fengmk2/express-resource.git

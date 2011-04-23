@@ -42,7 +42,8 @@
 ## Install NodeBlog
     
     $ git clone git://github.com/fengmk2/nodeblog.git
-    $ git clone git://github.com/fengmk2/express-resource.git
+    $ git submodule init
+    $ git submodule update
 
 ## DIY template 
 
