@@ -10,6 +10,7 @@
  * Simple to install
  * Support post to twitter, facebook, weibo, tqq and so on.
  * Speed
+ * Support MetaWeblog API Sync
 
 ## Requirements
 
