@@ -3,7 +3,7 @@
 var express = require('express')
   , weibo = require('weibo')
   , FileStore = require('filestore').FileStore
-  , Resource = require('../../git-fork/express-resource')
+  , Resource = require('./support/express-resource')
   , config = require('./config')
   , models = require('./models')
   , User = models.User;
