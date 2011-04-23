@@ -781,3 +781,15 @@ a.reveal {
 .dd_disclosure {
     float: right;
 }
+
+h2.post_title {
+    font-size: 150%!important;
+    border: 0!important;
+}
+
+.post_content h2 {
+    font-size: 120%!important;
+	border: 0!important;
+	border-top: 4px solid #E0E0E0!important;
+	padding-top: .5em!important;
+}

@@ -5,11 +5,25 @@
 var mongoose = require('mongoose')
   , Schema = mongoose.Schema
   , ObjectId = Schema.ObjectId
-  , markdown = require('./lib/markdown');
+  , markdown = require('github-flavored-markdown').parse;
+
+var User = new Schema({
+	screen_name: String
+  , uid: {type: String, unique: true}
+  , t_url: String
+  , profile_image_url: String
+  , info: {}
+  , metaweblog: {type: {}, default: Object}
+  , setting: {type: {}, default: Object}
+  , is_admin: {type: Boolean, default: false}
+  , create_at: {type: Date, default: Date.now}
+  , update_at: {type: Date, default: Date.now}
+});
+mongoose.model('User', User);
 
 var Post = new Schema({
 	title: String
-  , author: ObjectId
+  , author_id: ObjectId
   , content: String
   , is_markdown: {type: Boolean, default: true}
   , tags: [String]
@@ -20,22 +34,9 @@ var Post = new Schema({
   , update_at: {type: Date, default: Date.now}
 });
 Post.virtual('html').get(function() {
-	return this.is_markdown && this.content ? markdown.parse(this.content) : this.content;
+	return this.is_markdown && this.content ? markdown(this.content) : this.content;
 });
 mongoose.model('Post', Post);
-
-var User = new Schema({
-	screen_name: String
-  , uid: String
-  , t_url: String
-  , profile_image_url: String
-  , info: {}
-  , metaweblog: {type: {}, default: Object}
-  , setting: {type: {}, default: Object}
-  , create_at: {type: Date, default: Date.now}
-  , update_at: {type: Date, default: Date.now}
-});
-mongoose.model('User', User);
 
 mongoose.connect('mongodb://localhost/nodeblog');
 exports.Post = mongoose.model('Post');

@@ -28,22 +28,35 @@ exports.show = function(req, res, next) {
 	});
 };
 
+function save_metaweblog(params, user, callback) {
+	var metaweblog = user.metaweblog || {};
+	metaweblog.username = params.metaweblog_username;
+	metaweblog.password = params.metaweblog_password;
+	metaweblog.url = params.metaweblog_url;
+	user.metaweblog = metaweblog;
+	if(metaweblog.url && metaweblog.username && metaweblog.password) {
+		var weblog = new MetaWeblog(metaweblog.url);
+		weblog.getUsersBlogs('nodeblog', metaweblog.username, metaweblog.password, function(err, bloginfos) {
+			metaweblog.error = (err && err.message) || null;
+			if(bloginfos && bloginfos.length > 0) {
+				metaweblog.bloginfo = bloginfos[0];
+			} else {
+				metaweblog.bloginfo = null;
+			}
+			callback();
+		});
+	} else {
+		metaweblog.bloginfo = null;
+		callback();
+	}
+};
+
 exports.save = function(req, res, next) {
 	if(!req.session.user) {
 		return next();
 	}
 	User.findOne({uid: req.session.user.uid}, function(err, user) {
-		var metaweblog = user.metaweblog || {};
-		metaweblog.username = req.body.metaweblog_username;
-		metaweblog.password = req.body.metaweblog_password;
-		metaweblog.url = req.body.metaweblog_url;
-		var weblog = new MetaWeblog(metaweblog.url);
-		weblog.getUsersBlogs('nodeblog', metaweblog.username, metaweblog.password, function(err, bloginfos) {
-			if(err) return next(err);
-			if(bloginfos && bloginfos.length > 0) {
-				metaweblog.bloginfo = bloginfos[0];
-			}
-			user.metaweblog = metaweblog;
+		save_metaweblog(req.body, user, function() {
 			req.session.user = user;
 			user.save(function(err) {
 				if(err) return next(err);

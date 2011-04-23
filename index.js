@@ -54,7 +54,11 @@ app.register(".html", ejs);
 app.configure(function(){
     app.use(express.bodyParser());
     app.use(express.cookieParser());
-    app.use(express.session({secret: config.session_secret, store: new FileStore(config.session_dir)}));
+    app.use(express.session({
+    	secret: config.session_secret
+      , store: new FileStore(config.session_dir)
+    	//cookie: {maxAge: 94400000}
+    }));
 });
 
 app.configure('development', function(){
@@ -71,6 +75,11 @@ app.configure('production', function(){
 app.use(weibo.oauth_middleware(function(oauth_user, referer, req, res, callback) {
 	oauth_user.uid = oauth_user.blogtype + ':' + oauth_user.id;
 	User.findOne({uid: oauth_user.uid}, function(err, user) {
+		if(err) {
+			console.log(err);
+			res.send(err);
+			callback(false);
+		}
 		if(!user) {
 			user = new User();
 		}
@@ -79,9 +88,16 @@ app.use(weibo.oauth_middleware(function(oauth_user, referer, req, res, callback)
 		user.t_url = oauth_user.t_url;
 		user.profile_image_url = oauth_user.profile_image_url;
 		user.info = oauth_user;
+		user.is_admin = config.admins.indexOf(user.uid) >= 0;
 		user.save(function(err) {
-			req.session.user = user;
-			callback();
+			if(err) {
+				console.log(err);
+				res.send(err);
+				callback(false);
+			} else {
+				req.session.user = user;
+				callback();
+			}
 		});
 	});
 }));
@@ -104,7 +120,10 @@ app.use(function wrap_current_user(req, res, next) {
         }
     	res._locals.current_user = null;
         if(req.session && req.session.user) {
-        	req.session.user.is_admin = config.admins.indexOf(req.session.user.uid) >= 0;
+        	// keep login
+        	var year = 25920000000;
+        	req.session.cookie.expires = new Date(Date.now() + year);
+        	req.session.cookie.maxAge = year;
             res._locals.current_user = req.session.user;
         }
         next();
@@ -129,3 +148,29 @@ app.resource('user', require('./controllers/user'));
 
 app.listen(3000);
 console.log('http://localhost:3000/');
+
+
+// format datetime, demo: new Date().format("yyyy-MM-dd hh:mm:ss");
+Date.prototype.format = function(format)
+{
+	format = format || "yyyy-MM-dd hh:mm:ss";
+	var o = {
+		"M+" : this.getMonth()+1, //month
+		"d+" : this.getDate(),    //day
+		"h+" : this.getHours(),   //hour
+		"m+" : this.getMinutes(), //minute
+		"s+" : this.getSeconds(), //second
+		"q+" : Math.floor((this.getMonth()+3)/3), //quarter
+		"S" : this.getMilliseconds() //millisecond
+	};
+	if(/(y+)/.test(format)) {
+		format=format.replace(RegExp.$1, (this.getFullYear()+"").substr(4 - RegExp.$1.length));
+	}
+
+	for(var k in o) {
+		if(new RegExp("("+ k +")").test(format)) {
+			format = format.replace(RegExp.$1, RegExp.$1.length==1 ? o[k] : ("00"+ o[k]).substr((""+ o[k]).length));
+		}
+	}
+	return format;
+};

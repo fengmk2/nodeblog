@@ -14,12 +14,14 @@
     <input type="checkbox" {{ if(post.is_markdown) { }}checked="checked"{{ } }} id="markdown_cb" name="markdown_cb" /><label for="markdown_cb">Markdown</label> 
     |
     <input type="checkbox" {{ if(post.public) { }}checked="checked"{{ } }} id="public_cb" name="public_cb" /><label for="public_cb">Public</label> 
+    {{ if(current_user.metaweblog && current_user.metaweblog.bloginfo) { }}
     |
     <input type="checkbox" {{ if(post.weblog_sync) { }}checked="checked"{{ } }} id="sync_cb" name="sync_cb" /><label for="sync_cb">Sync to Blog</label> 
+    {{ } }}
     <div style="font-size: 0.8em; font-style: italic; float: right; padding-top: 4px;"> 
         (Markdown or HTML)
     </div> 
-    <textarea style="display: block; clear: both; width: 100%; height: 25em; margin-bottom: 20px;" id="content" name="content">{{= post.content || ''}}</textarea> 
+    <textarea style="display: block; clear: both; width: 100%; height: 45em; margin-bottom: 20px;" id="content" name="content">{{= post.content || ''}}</textarea> 
     <div style="text-align: center;"> 
         <input id="submit" type="submit" style="width: 100px; height: 40px; font-size: 18px;" value="提 交"/> 
     </div> 
