@@ -38,7 +38,7 @@
 
 ## Node Modules Install
 
-    $ sudo npm install express express-resource weibo metaweblog mongoose github-flavored-markdown
+    $ sudo npm install express express-resource dot weibo metaweblog mongoose github-flavored-markdown
 
 ## Install NodeBlog
     

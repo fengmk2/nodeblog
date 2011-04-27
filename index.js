@@ -11,8 +11,8 @@ var express = require('express')
   , User = models.User;
 
 var app = express.createServer(
-    //express.logger()
-  express.bodyParser()
+    express.logger()
+  , express.bodyParser()
 );
 
 
@@ -55,7 +55,6 @@ dot.templateSettings.begin = '<?js';
 dot.templateSettings.end = '?>';
 app.register(".html", {
     compile: function(str, options) {
-    	console.log('compile :', options.filename);
         return dot.template(str);
     }
 });
