@@ -161,6 +161,7 @@ app.resource('user', require('./controllers/user'));
 
 app.listen(3000);
 console.log('http://localhost:3000/');
+console.log((process.env.NODE_ENV || 'development') + ' env');
 
 
 // format datetime, demo: new Date().format("yyyy-MM-dd hh:mm:ss");
