@@ -1,20 +1,21 @@
 {{  
-    var action = "/post";
+    var action = "/post", post = it.post;
     if(!post.isNew) {
         action = '/post/' + post.id;
     }
+    
 }}
 <form action="{{= action }}" method="post" if-match="*" style="width: 98%; margin: 0px auto 0px auto;"> 
     <label for="bookmark_title" style="float: left;">Title:</label> 
     <div style="font-size: 0.8em; font-style: italic; float: right; padding-top: 4px;"> 
         (Title for this post)
     </div> 
-    <input style="display: block; clear: both; width: 100%; margin-bottom: 20px;" id="title" name="title" type="text" value="{{= post.title || ''}}" /> 
+    <input style="display: block; clear: both; width: 100%; margin-bottom: 20px;" id="title" name="title" type="text" value="{{! post.title || ''}}" /> 
     <label for="bookmark_selection" style="float: left;">正文:</label> 
     <input type="checkbox" {{ if(post.is_markdown) { }}checked="checked"{{ } }} id="markdown_cb" name="markdown_cb" /><label for="markdown_cb">Markdown</label> 
     |
     <input type="checkbox" {{ if(post.public) { }}checked="checked"{{ } }} id="public_cb" name="public_cb" /><label for="public_cb">Public</label> 
-    {{ if(current_user.metaweblog && current_user.metaweblog.bloginfo) { }}
+    {{ if(it.current_user.metaweblog && it.current_user.metaweblog.bloginfo) { }}
     |
     <input type="checkbox" {{ if(post.weblog_sync) { }}checked="checked"{{ } }} id="sync_cb" name="sync_cb" /><label for="sync_cb">Sync to Blog</label> 
     {{ } }}

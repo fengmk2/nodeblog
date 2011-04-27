@@ -1,4 +1,6 @@
-// blog index
+/**
+ * Module dependencies.
+ */
 
 var express = require('express')
   , weibo = require('weibo')
@@ -9,8 +11,8 @@ var express = require('express')
   , User = models.User;
 
 var app = express.createServer(
-    express.logger()
-  , express.bodyParser()
+    //express.logger()
+  express.bodyParser()
 );
 
 
@@ -43,10 +45,20 @@ app.set('view options', {
     layout: __dirname + '/views/simple/layout',
     support_weibos: support_weibos
 });
-var ejs = require('ejs');
-ejs.open = '{{';
-ejs.close = '}}';
-app.register(".html", ejs);
+
+//var ejs = require('ejs');
+//ejs.open = '{{';
+//ejs.close = '}}';
+//app.register(".html", ejs);
+var dot = require('dot');
+dot.templateSettings.begin = '<?js';
+dot.templateSettings.end = '?>';
+app.register(".html", {
+    compile: function(str, options) {
+    	console.log('compile :', options.filename);
+        return dot.template(str);
+    }
+});
 
 /**
  * Middleware settings: bodyParser, cookieParser, session
@@ -70,6 +82,7 @@ app.configure('production', function(){
     var oneYear = 31557600000;
     app.use(express.static(__dirname + '/public', { maxAge: oneYear }));
     app.use(express.errorHandler());
+    app.set('view cache', true);
 });
 
 app.use(weibo.oauth_middleware(function(oauth_user, referer, req, res, callback) {
