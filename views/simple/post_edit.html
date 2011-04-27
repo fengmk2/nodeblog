@@ -10,7 +10,7 @@
     <div style="font-size: 0.8em; font-style: italic; float: right; padding-top: 4px;"> 
         (Title for this post)
     </div> 
-    <input style="display: block; clear: both; width: 100%; margin-bottom: 20px;" id="title" name="title" type="text" value="{{! post.title || ''}}" /> 
+    <input style="display: block; clear: both; width: 100%; margin-bottom: 20px;" id="title" name="title" type="text" value="<?js! post.title || ''?>" /> 
     <label for="bookmark_selection" style="float: left;">正文:</label> 
     <input type="checkbox" <?js if(post.is_markdown) { ?>checked="checked"<?js } ?> id="markdown_cb" name="markdown_cb" /><label for="markdown_cb">Markdown</label> 
     |
