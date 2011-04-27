@@ -11,8 +11,7 @@ var express = require('express')
   , User = models.User;
 
 var app = express.createServer(
-    express.logger()
-  , express.bodyParser()
+    express.bodyParser()
 );
 
 
@@ -78,6 +77,7 @@ app.configure('development', function(){
 });
 
 app.configure('production', function(){
+	app.use(express.logger());
     var oneYear = 31557600000;
     app.use(express.static(__dirname + '/public', { maxAge: oneYear }));
     app.use(express.errorHandler());
@@ -102,6 +102,7 @@ app.use(weibo.oauth_middleware(function(oauth_user, referer, req, res, callback)
 		user.info = oauth_user;
 		user.is_admin = config.admins.indexOf(user.uid) >= 0;
 		user.save(function(err) {
+			console.log(arguments);
 			if(err) {
 				console.log(err);
 				res.send(err);
