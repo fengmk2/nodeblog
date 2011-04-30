@@ -26,9 +26,9 @@
 		     <span style="color: #ccc;">&bull;</span> 
              <a href="/post/new">添加文章</a> 
 		     <span style="color: #ccc;">&bull;</span> 
-		     <a href="/user/<?js! it.current_user.uid ?>">
-                <img style="width: 25px; height: 25px;" src="<?js= it.current_user.profile_image_url?>" />
-                @<?js! it.current_user.screen_name ?>
+		     <a href="/user/#{ it.current_user.uid }">
+                <img style="width: 25px; height: 25px;" src="#{ it.current_user.profile_image_url }" />
+                @${ it.current_user.screen_name }
              </a>
 		     <span style="color: #ccc;">&bull;</span> 
 		     <a href="/logout">退出</a>
@@ -42,7 +42,7 @@
         <div id="description"><a target="_blank" href="https://github.com/fengmk2/nodeblog/">Nodeblog</a> is a simple blog system base on <a href="http://nodejs.org" target="_blank">Nodejs</a>.
         </div> 
     </div> 
-    <div id="content"><?js= it.body ?></div> 
+    <div id="content">#{ it.body }</div> 
     <div id="footer"> 
         <a href="/">Index</a> &bull;
         <a href="/about">About</a> &bull;

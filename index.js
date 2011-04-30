@@ -3,8 +3,8 @@
  */
 
 var express = require('express')
-  , weibo = require('weibo')
   , FileStore = require('filestore').FileStore
+  , weibo = require('weibo')
   , Resource = require('./support/express-resource')
   , config = require('./config')
   , models = require('./models')
@@ -13,7 +13,6 @@ var express = require('express')
 var app = express.createServer(
     express.bodyParser()
 );
-
 
 /**
  * Weibo settings
@@ -49,27 +48,10 @@ app.set('view options', {
 //ejs.open = '{{';
 //ejs.close = '}}';
 //app.register(".html", ejs);
-var dot = require('dot');
-dot.templateSettings.begin = '<?js';
-dot.templateSettings.end = '?>';
-app.register(".html", {
-    compile: function(str, options) {
-        return dot.template(str);
-    }
-});
-
-/**
- * Middleware settings: bodyParser, cookieParser, session
- */
-app.configure(function(){
-    app.use(express.bodyParser());
-    app.use(express.cookieParser());
-    app.use(express.session({
-    	secret: config.session_secret
-      , store: new FileStore(config.session_dir)
-    	//cookie: {maxAge: 94400000}
-    }));
-});
+//var dot = require('dot');
+//dot.templateSettings.begin = '<?js';
+//dot.templateSettings.end = '?>';
+app.register(".html", require('tenjin'));
 
 app.configure('development', function(){
     app.use(express.static(__dirname + '/public'));
@@ -82,6 +64,18 @@ app.configure('production', function(){
     app.use(express.static(__dirname + '/public', { maxAge: oneYear }));
     app.use(express.errorHandler());
     app.set('view cache', true);
+});
+
+/**
+ * Middleware settings: bodyParser, cookieParser, session
+ */
+app.configure(function(){
+    app.use(express.cookieParser());
+    var store = new FileStore(config.session_dir);
+    app.use(express.session({
+    	secret: config.session_secret
+      , store: store
+    }));
 });
 
 app.use(weibo.oauth_middleware(function(oauth_user, referer, req, res, callback) {
@@ -102,7 +96,6 @@ app.use(weibo.oauth_middleware(function(oauth_user, referer, req, res, callback)
 		user.info = oauth_user;
 		user.is_admin = config.admins.indexOf(user.uid) >= 0;
 		user.save(function(err) {
-			console.log(arguments);
 			if(err) {
 				console.log(err);
 				res.send(err);

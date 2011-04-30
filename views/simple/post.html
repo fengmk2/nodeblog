@@ -14,23 +14,23 @@ function delete_post(id) {
 
 <div class="extras_section">
 <?js var post = it.post, current_user = it.current_user; ?>
-    <h2 class="post_title"><a href="/post/<?js= post.id ?>"><?js! post.title ?></a></h2>
+    <h2 class="post_title"><a href="/post/#{ post.id }">${ post.title }</a></h2>
     <div class="post_content">
-    <?js=post.html?>
+    #{ post.html }
     </div>
     <p>
         <?js if(post.author) { ?>
-        <a href="<?js= post.author.t_url ?>">
-           <img style="width: 25px; height: 25px;" src="<?js= post.author.profile_image_url?>" />
-           @<?js= post.author.screen_name ?>
+        <a href="#{ post.author.t_url }">
+           <img style="width: 25px; height: 25px;" src="#{ post.author.profile_image_url }" />
+           @${ post.author.screen_name }
         </a>
         <?js } ?>
-        Post at <?js= post.create_at.format() ?>
+        Post at #{ post.create_at.format() }
         <span style="color: #ccc;">&bull;</span>
         <?js if(current_user && (!post.author || current_user.uid === post.author.uid)) { ?>
-        <a href="/post/<?js= post.id ?>/edit">编辑</a>
+        <a href="/post/#{ post.id }/edit">编辑</a>
         <span style="color: #ccc;">&bull;</span>
-        <a href="javascript:delete_post('<?js= post.id ?>');">删除</a>
+        <a href="javascript:delete_post('#{ post.id }');">删除</a>
         <?js } ?>
     </p>
 </div>

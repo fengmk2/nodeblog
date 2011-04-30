@@ -11,6 +11,7 @@
  * Support post to twitter, facebook, weibo, tqq and so on.
  * Speed
  * Support MetaWeblog API Sync
+ * Support 42qu.com
 
 ## Requirements
 
@@ -38,7 +39,7 @@
 
 ## Node Modules Install
 
-    $ sudo npm install express express-resource dot weibo metaweblog mongoose github-flavored-markdown
+    $ sudo npm install express express-resource tenjin weibo metaweblog mongoose github-flavored-markdown
 
 ## Install NodeBlog
     
