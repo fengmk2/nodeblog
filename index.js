@@ -14,6 +14,10 @@ var app = express.createServer(
     express.bodyParser()
 );
 
+app.helpers({
+	config: config
+});
+
 /**
  * Weibo settings
  */
