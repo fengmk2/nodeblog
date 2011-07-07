@@ -26,8 +26,11 @@ exports.index = function(req, res, next) {
 				var post = posts[i];
 				post.author = map[post.author_id];
 			}
-			var tpl = req.query.format === 'rss' ? 'rss' : 'index';
-			res.render(tpl, {posts: posts});
+			var tpl = 'index', layout = true;
+			if(req.query.format === 'rss') {
+				tpl = 'rss', layout = false;
+			}
+			res.render(tpl, {posts: posts, layout: layout});
 		});
 	});
 };
