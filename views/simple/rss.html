@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:trackback="http://madskills.com/public/xml/rss/module/trackback/" xmlns:wfw="http://wellformedweb.org/CommentAPI/" xmlns:slash="http://purl.org/rss/1.0/modules/slash/">
+  <channel>
+    <title>#{ it.config.site_name }</title>
+    <link>#{ it.config.site_url }</link>
+    <description>#{ it.config.site_description }</description>
+    <pubDate>#{ new Date() }</pubDate>
+    <?js for(var i = 0, len = it.posts.length; i < len; i++) {
+    	var post = it.posts[i];
+    	post.rss_link = it.config.site_url + '/post/' + post.id;
+    ?>
+    <item>
+       <title>${ post.title }</title>
+       <link>${ post.rss_link }</link>
+       <?js if(post.author) { ?>
+       <dc:creator>@${ post.author.screen_name }</dc:creator>
+       <author>@${ post.author.screen_name }</author>
+       <?js } ?>
+       <pubDate>#{ post.create_at }</pubDate>
+       <guid>${ post.rss_link }</guid>
+       <description><![CDATA[#{ post.html }]]></description>
+    </item>
+    <?js } ?>
+  </channel>
+</rss>

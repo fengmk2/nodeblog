@@ -7,7 +7,7 @@ var models = require('../models')
   , User = models.User;
 
 exports.index = function(req, res, next) {
-	Post.where().limit(10).sort('create_at', -1).find(function(err, posts) {
+	Post.where().limit(20).sort('create_at', -1).find(function(err, posts) {
 		if(err) return next(err);
 		var ids = {};
 		for(var i = 0, len = posts.length; i < len; i ++) {
@@ -26,7 +26,8 @@ exports.index = function(req, res, next) {
 				var post = posts[i];
 				post.author = map[post.author_id];
 			}
-			res.render('index', {posts: posts});
+			var tpl = req.query.format === 'rss' ? 'rss' : 'index';
+			res.render(tpl, {posts: posts});
 		});
 	});
 };

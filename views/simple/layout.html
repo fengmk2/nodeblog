@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html> 
 <head> 
-    <title>Node Blog</title> 
+    <title>#{ it.config.site_name }</title> 
     <meta name="description" content="A simple blog."/> 
     <meta name="viewport" content="width=770"/> 
     <link rel="icon" href="/favicon.ico"/> 
@@ -22,6 +22,7 @@
    <div id="header"> 
         <div id="userpanel">
 		     <a href="/">首页</a>
+		     <a href="/?format=rss">RSS</a>
 		     <?js if(it.current_user) { ?>
 		     <span style="color: #ccc;">&bull;</span> 
              <a href="/post/new">添加文章</a> 
@@ -39,8 +40,7 @@
         <h1 id="logo"> 
             <a href="/" class="logo">NodeBlog</a> 
         </h1> 
-        <div id="description"><a target="_blank" href="https://github.com/fengmk2/nodeblog/">Nodeblog</a> is a simple blog system base on <a href="http://nodejs.org" target="_blank">Nodejs</a>.
-        </div> 
+        <div id="description">#{ it.config.site_description }</div> 
     </div> 
     <div id="content">#{ it.body }</div> 
     <div id="footer"> 
