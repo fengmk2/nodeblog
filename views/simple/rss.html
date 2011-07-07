@@ -3,7 +3,7 @@
   <channel>
     <title>#{ it.config.site_name }</title>
     <link>#{ it.config.site_url }</link>
-    <description>#{ it.config.site_description }</description>
+    <description><![CDATA[#{ it.config.site_description }]]></description>
     <pubDate>#{ new Date() }</pubDate>
     <?js for(var i = 0, len = it.posts.length; i < len; i++) {
     	var post = it.posts[i];
