@@ -4,7 +4,7 @@
     <title>#{ it.config.site_name }</title>
     <link>#{ it.config.site_url }</link>
     <description><![CDATA[#{ it.config.site_description }]]></description>
-    <pubDate>#{ new Date() }</pubDate>
+    <pubDate>#{ new Date().format('rssDateTime') }</pubDate>
     <?js for(var i = 0, len = it.posts.length; i < len; i++) {
     	var post = it.posts[i];
     	post.rss_link = it.config.site_url + '/post/' + post.id;
@@ -16,7 +16,7 @@
        <dc:creator>@${ post.author.screen_name }</dc:creator>
        <author>@${ post.author.screen_name }</author>
        <?js } ?>
-       <pubDate>#{ post.create_at }</pubDate>
+       <pubDate>#{ post.create_at.format('rssDateTime') }</pubDate>
        <guid>${ post.rss_link }</guid>
        <description><![CDATA[#{ post.html }]]></description>
     </item>
