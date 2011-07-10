@@ -9,8 +9,7 @@ exports.DATA_DIR = path.join(__dirname, 'data');
 
 exports.db_options = {
 	host: 'localhost',
-	port: 3306,
-	user: 'root',
+	user: 'nodeblog',
 	password: '123456',
 	database: 'nodeblog'
 };
