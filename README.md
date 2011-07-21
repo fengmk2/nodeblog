@@ -37,6 +37,19 @@
     # install mongodb
     # see: http://www.mongodb.org/display/DOCS/CentOS+and+Fedora+Packages
 
+
+install libxmljs on no.de: http://discuss.joyent.com/viewtopic.php?pid=225354#p225354
+
+    Next: tell scons to import your external environment. This allows it to use your path.
+    Change line 56 from:
+    Code:
+    env = Environment(BUILDERS = {'Test' : testBuilder})
+    
+    to:
+    Code:
+    env = Environment(ENV = os.environ, BUILDERS = {'Test' : testBuilder})
+
+    
 ## Node Modules Install
 
     $ sudo npm install express express-resource tenjin weibo metaweblog mongoose github-flavored-markdown
