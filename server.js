@@ -158,6 +158,6 @@ app.resource(require('./controllers/blog'));
 app.resource('post', require('./controllers/post'));
 app.resource('user', require('./controllers/user'));
 
-app.listen(3000);
-console.log('http://localhost:3000/');
+app.listen(config.PORT);
+console.log('http://localhost:' + config.PORT);
 console.log((process.env.NODE_ENV || 'development') + ' env');
