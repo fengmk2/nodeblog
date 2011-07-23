@@ -12,6 +12,21 @@ var express = require('express')
 
 require('./public/js/date.format');
 
+Resource.prototype._mapDefaultAction = Resource.prototype.mapDefaultAction;
+Resource.prototype.mapDefaultAction = function(key, fn){
+    switch(key) {
+        case 'save':
+            this.post(fn);
+            break;
+        case 'delete':
+            this.post('delete', fn);
+            break;
+        default:
+            this._mapDefaultAction(key, fn);
+            break;
+    }
+};
+
 var app = express.createServer(
     express.bodyParser()
 );
