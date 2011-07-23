@@ -10,7 +10,7 @@ var MetaWeblog = null;
 try {
     MetaWeblog = require('metaweblog').MetaWeblog;
 } catch(e) {
-    console.warning('unspport MetaWeblog, Please install "npm install -g metaweblog"');
+    console.warn('unsupport MetaWeblog, Please install "npm install -g metaweblog"');
 }
 
 /**
