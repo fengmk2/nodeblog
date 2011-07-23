@@ -5,7 +5,7 @@
 var express = require('express')
   , FileStore = require('filestore').FileStore
   , weibo = require('weibo')
-  , Resource = require('./support/express-resource')
+  , Resource = require('express-resource')
   , config = require('./config')
   , models = require('./models')
   , User = models.User;

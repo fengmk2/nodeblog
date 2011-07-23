@@ -4,9 +4,14 @@
 
 var models = require('../models')
   , Post = models.Post
-  , User = models.User
-  , MetaWeblog = require('metaweblog').MetaWeblog;
+  , User = models.User;
 
+var MetaWeblog = null;
+try {
+    MetaWeblog = require('metaweblog').MetaWeblog;
+} catch(e) {
+    console.warning('unspport MetaWeblog, Please install "npm install -g metaweblog"');
+}
 
 /**
  * Check if req.post author
@@ -59,7 +64,7 @@ exports.edit = function(req, res){
  */
 function sync_weblog(user, post, callback) {
 	var metaweblog = user.metaweblog;
-	if(post.weblog_sync && metaweblog && metaweblog.bloginfo) {
+	if(post.weblog_sync && metaweblog && metaweblog.bloginfo && MetaWeblog) {
 		var weblog = new MetaWeblog(metaweblog.url);
 		var weblog_post = {
 			dateCreated: post.create_at
@@ -124,7 +129,7 @@ exports.save = function(req, res, next){
 
 function remove_weblog_post(post, user, callback) {
 	var metaweblog = user.metaweblog;
-	if(post.weblog_sync && post.weblog_post && metaweblog && metaweblog.bloginfo) {
+	if(post.weblog_sync && post.weblog_post && metaweblog && metaweblog.bloginfo && MetaWeblog) {
 		var weblog = new MetaWeblog(metaweblog.url);
 		weblog.deletePost('nodeblog', post.weblog_post, 
 				metaweblog.username, metaweblog.password, true, callback);
