@@ -3,8 +3,15 @@
  */
 
 var models = require('../models')
-  , User = models.User
-  , MetaWeblog = require('metaweblog').MetaWeblog;
+  , User = models.User;
+
+var MetaWeblog = null, support_metaweblog = true;
+try {
+    MetaWeblog = require('metaweblog').MetaWeblog;
+} catch(e) {
+    console.warning('unspport MetaWeblog, Please install "npm install -g metaweblog"');
+    support_metaweblog = false;
+}
 
 exports.index = function(req, res) {
 	var t_user = req.session.user;
@@ -24,7 +31,7 @@ exports.show = function(req, res, next) {
 		if(err) return next(err);
 		var setting = user.setting || {};
 		var metaweblog = user.metaweblog || {};
-		res.render('user', {user: user, setting: setting, metaweblog: metaweblog});
+		res.render('user', {user: user, setting: setting, metaweblog: metaweblog, support_metaweblog: support_metaweblog});
 	});
 };
 
@@ -34,7 +41,7 @@ function save_metaweblog(params, user, callback) {
 	metaweblog.password = params.metaweblog_password;
 	metaweblog.url = params.metaweblog_url;
 	user.metaweblog = metaweblog;
-	if(metaweblog.url && metaweblog.username && metaweblog.password) {
+	if(metaweblog.url && metaweblog.username && metaweblog.password && MetaWeblog) {
 		var weblog = new MetaWeblog(metaweblog.url);
 		weblog.getUsersBlogs('nodeblog', metaweblog.username, metaweblog.password, function(err, bloginfos) {
 			metaweblog.error = (err && err.message) || null;

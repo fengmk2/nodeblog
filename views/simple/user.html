@@ -10,7 +10,7 @@ if(!current_user) {
     ?>
     <a title="#{name}" href="/oauth?blogtype=#{type}">#{name}</a>
     <?js } ?>
-<?js } else { ?>
+<?js } else if(it.support_metaweblog) { ?>
     <h2>关联博客设置</h2>
     <form action="/user/#{current_user.uid}" method="post">
         <h3>MetaWeblog API</h3>
