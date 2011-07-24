@@ -4,7 +4,10 @@
 
 var models = require('../models')
   , Post = models.Post
-  , User = models.User;
+  , User = models.User
+  , Comment = models.Comment
+  , check_author = require('./common').check_author
+  , combo = require('../lib/combo').combo;
 
 var MetaWeblog = null;
 try {
@@ -13,20 +16,6 @@ try {
     console.warn('unsupport MetaWeblog, Please install "npm install -g metaweblog"');
 }
 
-/**
- * Check if req.post author
- * 
- * @param {Object} req
- * @param {Object} res
- * @api private
- */
-function check_author(req, res) {
-	var user = req.session.user;
-	if(!user || user._id != req.post.author_id) {
-		return false;
-	}
-	return true;
-}
 
 exports.load = function(id, callback) {
 	Post.findById(id, callback);
@@ -41,11 +30,42 @@ exports.new = function(req, res){
 	res.render('post_edit', {post: post});
 };
 
-exports.show = function(req, res){
+exports.show = function(req, res, next){
 	var post = req.post;
-	User.findById(post.author_id, function(err, user) {
-		post.author = user;
-		res.render('post', {post: post});
+	var both = combo(function(user_args, comments_args) {
+	    var error = user_args[0] || comments_args[0];
+	    if(error) {
+	        return next(error);
+	    }
+	    post.author = user_args[1];
+        res.render('post', {post: post, comments: comments_args[1]});
+	});
+	var user_cb = both.add(), comments_cb = both.add();
+	User.findById(post.author_id, user_cb);
+	
+	Comment.find({parent_id: post.id}, function(err, comments) {
+	    if(err) {
+	        return comments_cb(err);
+	    }
+	    var ids = {};
+        for(var i = 0, len = comments.length; i < len; i ++) {
+            var comment = comments[i];
+            if(comment.author_id && !ids[comment.author_id]) {
+                ids[comment.author_id] = 1;
+            }
+        }
+        User.find({_id: {$in: Object.keys(ids)}}, function(err, users) {
+            var map = {}, users = users || [];
+            for(var i = 0, len = users.length; i < len; i ++) {
+                var user = users[i];
+                map[user.id] = user;
+            }
+            for(var i = 0, len = comments.length; i < len; i ++) {
+                var comment = comments[i];
+                comment.author = map[comment.author_id];
+            }
+            comments_cb(err, comments);
+        });
 	});
 };
 

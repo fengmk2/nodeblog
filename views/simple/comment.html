@@ -1,0 +1,18 @@
+<div id="comment_#{comment.id}" class="comment">
+    <p>
+        <?js if(comment.author) { ?>
+        <a href="#{ comment.author.t_url }">
+           <img style="width: 25px; height: 25px;" src="#{ comment.author.profile_image_url }" />
+           @${ comment.author.screen_name }
+        </a>
+        <?js } ?>
+        Post at #{ comment.create_at.format() }
+        <span style="color: #ccc;">&bull;</span>
+        <?js if(current_user && (current_user.uid === comment.author.uid)) { ?>
+        <a href="javascript:edit_comment('#{comment.id}');">编辑</a>
+        <span style="color: #ccc;">&bull;</span>
+        <a href="javascript:delete_comment('#{comment.id}');">删除</a>
+        <?js } ?>
+    </p>
+    <p>#{comment.html}</p>
+</div>

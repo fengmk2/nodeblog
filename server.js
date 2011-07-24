@@ -157,20 +157,10 @@ app.use(function wrap_current_user(req, res, next) {
     }
 });
 
-//var vhost_re = new RegExp('^' + config.subdomain.replace(/[*]/g, '(.*?)') + '$');
-//app.use(function sub_domain(req, res, next) {
-//	if(req.headers.host) {
-//		var host = req.headers.host.split(':')[0];
-//		var subdomains = vhost_re.exec(host);
-//	    if(subdomains) {
-//	    	req.subdomain = subdomains[1];
-//	    }
-//	}
-//	next();
-//});
-
 app.resource(require('./controllers/blog'));
-app.resource('post', require('./controllers/post'));
+var post_resource = app.resource('post', require('./controllers/post'));
+var comment_resource = app.resource('comment', require('./controllers/comment'));
+post_resource.add(comment_resource);
 app.resource('user', require('./controllers/user'));
 
 app.listen(config.PORT);
