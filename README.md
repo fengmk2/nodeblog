@@ -57,8 +57,9 @@ install libxmljs on no.de: http://discuss.joyent.com/viewtopic.php?pid=225354#p2
 ## Install NodeBlog
     
     $ git clone git://github.com/fengmk2/nodeblog.git
-    $ git submodule init
-    $ git submodule update
+    $ cd nodeblog
+    $ cp config.js.tpl config.js
+    $ node server.js
 
 ## DIY template 
 
