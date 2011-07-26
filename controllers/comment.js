@@ -57,6 +57,7 @@ exports.delete = function(req, res){
 //    if(!check_author(req, res)) {
 //        return res.send(JSON.stringify({success: false, error: 'No permissions.'}));
 //    }
+    
     req.comment.remove(function(err) {
         var success = true;
         if(err) {
