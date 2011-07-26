@@ -10,6 +10,16 @@ function delete_post(id) {
         });
     }
 };
+
+function delete_comment(id) {
+    $.post(window.location.href + '/comment/' + id + '/delete', function(result) {
+        if(result.error) {
+            alert(result.error);
+        } else {
+            $('#comment_' + id).remove();
+        }
+    });
+};
 </script>
 
 <div class="extras_section">
@@ -84,7 +94,7 @@ function delete_post(id) {
         <?js } ?>
         comment at #{ comment.create_at.format() }
         <span style="color: #ccc;">&bull;</span>
-        <?js if(current_user && (current_user._id === comment.author_id)) { ?>
+        <?js if(current_user && (current_user._id === comment.author_id || current_user.uid === post.author.uid)) { ?>
         <a href="javascript:edit_comment('#{comment.id}');">编辑</a>
         <span style="color: #ccc;">&bull;</span>
         <a href="javascript:delete_comment('#{comment.id}');">删除</a>

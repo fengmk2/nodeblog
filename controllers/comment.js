@@ -51,3 +51,18 @@ exports.save = function(req, res, next){
         res.redirect('/post/' + comment.parent_id + '#comment_' + comment.id);
     });
 };
+
+
+exports.delete = function(req, res){
+//    if(!check_author(req, res)) {
+//        return res.send(JSON.stringify({success: false, error: 'No permissions.'}));
+//    }
+    req.comment.remove(function(err) {
+        var success = true;
+        if(err) {
+            err = err.message || err;
+            success = false;
+        }
+        res.send(JSON.stringify({success: success, error: err}));
+    });
+};
