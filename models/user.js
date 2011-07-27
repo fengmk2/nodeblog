@@ -10,7 +10,7 @@ var User = new Schema({
   , uid: {type: String, unique: true}
   , t_url: String
   , profile_image_url: String
-  , info: {}
+  , info: {type: {}}
   , metaweblog: {type: {}, default: Object}
   , setting: {type: {}, default: Object}
   , is_admin: {type: Boolean, default: false}

@@ -9,7 +9,7 @@ var mongoose = require('mongoose')
 
 var Comment = new Schema({
     author_id: ObjectId
-  , user_info: {}
+  , user_info: {type: {}}
   , content: String
   , parent_id: {type: ObjectId, index: true}
   , is_markdown: {type: Boolean, default: true}
