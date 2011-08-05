@@ -28,7 +28,7 @@ function delete_comment(id) {
     <div class="post_content">
     #{ post.html }
     </div>
-    <p>
+    <p class="post_info">
         <?js if(post.author) { ?>
         <a href="#{ post.author.t_url }">
            <img style="width: 25px; height: 25px;" src="#{ post.author.profile_image_url }" />
@@ -102,5 +102,19 @@ function delete_comment(id) {
     </p>
     <p>#{comment.html}</p>
     <?js } ?>
+    </div>
 </div>
-</div>
+
+<script>
+$(function(){
+    var c_url = 'http://s8.hk/api/s?u=';
+    c_url += document.location.href;
+    c_url += '&cb=?'
+    $.getJSON(c_url, function(data){
+        var html = '<span>Shorten URL <input class="short_url" type="text" value="' + data + '" /></span><br/>';
+        $('.post_info').prepend(html).find('.short_url').click(function() {
+            $(this).select();
+        });
+    });
+});
+</script> 
