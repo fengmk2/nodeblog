@@ -9,7 +9,18 @@
     <script src="/js/jquery-1.5.2.min.js"></script>
     <link type="text/css" rel="stylesheet" href="/css/prettify.css" /> 
     <script src="/js/prettify.js"></script> 
-    <script type="text/javascript">
+    <script>
+    function delete_post(id) {
+        if(window.confirm('确定要删除此文章吗？')) {
+            $.post('/post/' + id + '/delete', function(result) {
+                if(result.error) {
+                    alert(result.error);
+                } else {
+                    window.location = '/';
+                }
+            });
+        }
+    };
     $(document).ready(function(){
     	$('pre').addClass('prettyprint');
     	prettyPrint();
@@ -25,8 +36,10 @@
 		     <span style="color: #ccc;">&bull;</span> 
 		     <a href="/?format=rss">RSS</a>
 		     <?js if(it.current_user) { ?>
-		     <span style="color: #ccc;">&bull;</span> 
-             <a href="/post/new">添加文章</a> 
+			     <?js if(it.current_user.is_admin) { ?>
+			     <span style="color: #ccc;">&bull;</span> 
+	             <a href="/post/new">添加文章</a> 
+	             <?js } ?>
 		     <span style="color: #ccc;">&bull;</span> 
 		     <a href="/user/#{ it.current_user.uid }">
                 <img style="width: 25px; height: 25px;" src="#{ it.current_user.profile_image_url }" />

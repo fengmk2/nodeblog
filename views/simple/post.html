@@ -1,16 +1,4 @@
 <script>
-function delete_post(id) {
-    if(window.confirm('确定要删除此文章吗？')) {
-        $.post('/post/' + id + '/delete', function(result) {
-        	if(result.error) {
-        		alert(result.error);
-        	} else {
-        		window.location = '/';
-        	}
-        });
-    }
-};
-
 function delete_comment(id) {
     $.post(window.location.href + '/comment/' + id + '/delete', function(result) {
         if(result.error) {
@@ -37,7 +25,7 @@ function delete_comment(id) {
         <?js } ?>
         Post at #{ post.create_at.format() }
         <span style="color: #ccc;">&bull;</span>
-        <?js if(current_user && (!post.author || current_user.uid === post.author.uid)) { ?>
+        <?js if(current_user && (current_user.is_admin || current_user.uid === post.author.uid)) { ?>
         <a href="/post/#{ post.id }/edit">编辑</a>
         <span style="color: #ccc;">&bull;</span>
         <a href="javascript:delete_post('#{ post.id }');">删除</a>

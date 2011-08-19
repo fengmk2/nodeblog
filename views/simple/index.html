@@ -15,7 +15,7 @@
         <?js } ?>
         Post at #{ post.create_at.format() }
         <span style="color: #ccc;">&bull;</span>
-        <?js if(it.current_user && (!post.author || it.current_user.uid === post.author.uid)) { ?>
+        <?js if(it.current_user && (it.current_user.is_admin || it.current_user.uid === post.author.uid)) { ?>
         <a href="/post/#{ post.id }/edit">编辑</a>
         <span style="color: #ccc;">&bull;</span>
         <a href="javascript:delete_post('#{ post.id }');">删除</a>

@@ -26,6 +26,9 @@ exports.index = function(req, res){
 };
     
 exports.new = function(req, res){
+    if(!req.session.user.is_admin) {
+        return res.redirect('/');
+    }
 	var post = new Post();
 	res.render('post_edit', {post: post});
 };
