@@ -13,7 +13,7 @@ if(db.user && db.password) {
 db.host = db.host || 'localhost';
 uri += db.host;
 if(db.port) {
-    uri += ':' + port;
+    uri += ':' + db.port;
 }
 uri += '/' + db.database;
 

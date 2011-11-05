@@ -12,6 +12,7 @@ var express = require('express')
 
 require('./public/js/date.format');
 
+/*
 Resource.prototype._mapDefaultAction = Resource.prototype.mapDefaultAction;
 Resource.prototype.mapDefaultAction = function(key, fn){
     switch(key) {
@@ -26,6 +27,11 @@ Resource.prototype.mapDefaultAction = function(key, fn){
             break;
     }
 };
+*/
+function mapPost(resource, action) {
+    resource.map('post', "", action.save);
+    resource.map('post', "delete", action.delete);
+}
 
 var app = express.createServer(
     express.bodyParser()
@@ -158,8 +164,11 @@ app.use(function wrap_current_user(req, res, next) {
 });
 
 app.resource(require('./controllers/blog'));
-var post_resource = app.resource('post', require('./controllers/post'));
-var comment_resource = app.resource('comment', require('./controllers/comment'));
+var post_controller, comment_controller;
+var post_resource = app.resource('post', post_controller=require('./controllers/post'));
+    mapPost(post_resource, post_controller);
+var comment_resource = app.resource('comment', comment_controller=require('./controllers/comment'));
+    mapPost(comment_resource, comment_controller);
 post_resource.add(comment_resource);
 app.resource('user', require('./controllers/user'));
 
