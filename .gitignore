@@ -3,4 +3,4 @@ data/
 .project
 config.js
 .nodeblog.sessions
-
+*.log
