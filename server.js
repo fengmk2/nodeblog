@@ -171,6 +171,7 @@ var comment_resource = app.resource('comment', comment_controller=require('./con
     mapPost(comment_resource, comment_controller);
 post_resource.add(comment_resource);
 app.resource('user', require('./controllers/user'));
+app.resource('tag', require('./controllers/tag'));
 
 app.listen(config.PORT);
 console.log('http://localhost:' + config.PORT);

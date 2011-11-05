@@ -6,6 +6,7 @@ var models = require('../models')
   , Post = models.Post
   , User = models.User
   , Comment = models.Comment
+  , Tag= models.Tag
   , check_author = require('./common').check_author
   , combo = require('../lib/combo').combo;
 
@@ -113,11 +114,23 @@ function sync_weblog(user, post, callback) {
 	}
 }
 
+/** 
+ * 分割标签字符串(,)
+ */
+function _parse_tags(tagLine) {
+  return tagLine.split(/\s*,\s*/).filter(function(s) {
+    //过滤空串
+    return s.length>0;  
+  });
+}
+
 exports.create = function(req, res, next){
 	var title = req.body.title
-	  , content = req.body.content;
+	  , content = req.body.content
+	  , new_tags=  _parse_tags(req.body.tags);
 	var user = req.session.user;
 	var post = new Post({title: title, content: content});
+	post.tags= new_tags;
 	post.weblog_sync = req.body.sync_cb == 'on';
 	post.is_markdown = req.body.markdown_cb == 'on';
 	post.public = req.body.public_cb == 'on';
@@ -126,6 +139,9 @@ exports.create = function(req, res, next){
 		if(err) return next(err);
 		post.save(function(err) {
 			if(err) return next(err);
+			Tag.addPostTags(post._id, new_tags, function(err, num) {
+				if (err) return next(err);
+			});
 			res.redirect('/post/' + post.id);
 		});
 	});
@@ -133,18 +149,26 @@ exports.create = function(req, res, next){
 
 exports.save = function(req, res, next){
 	if(!check_author(req, res)) return res.redirect('/');
-	var post = req.post;
-	var user = req.session.user;
+	var post = req.post
+		, user = req.session.user
+		, old_tags= post.tags
+		, new_tags= _parse_tags(req.body.tags)
+		;
 	post.title = req.body.title;
 	post.content = req.body.content;
+	post.tags= new_tags;
 	post.weblog_sync = req.body.sync_cb == 'on';
 	post.is_markdown = req.body.markdown_cb == 'on';
 	post.public = req.body.public_cb == 'on';
 	post.author_id = user._id;
+	//return;
 	sync_weblog(user, post, function(err) {
 		if(err) return next(err);
 		post.save(function(err) {
 			if(err) return next(err);
+			Tag.updatePostTags(post._id, new_tags, old_tags, function(err) {
+				if (err) return;
+			});
 			res.redirect('/post/' + post.id);
 		});
 	});

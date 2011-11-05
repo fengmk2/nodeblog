@@ -13,6 +13,14 @@ function delete_comment(id) {
 <div class="extras_section">
 <?js var post = it.post, current_user = it.current_user; ?>
     <h2 class="post_title"><a href="/post/#{ post.id }">${ post.title }</a></h2>
+    <div class="tag"><span class="name">标签: </span>
+        <?js 
+        tags= post.tags;
+        for(var j=0, len=tags.length; j<len; j++) {
+        ?>
+        <a href="/tag/#{tags[j]}">${tags[j]}</a>
+        <?js } ?>
+    </div>
     <div class="post_content">
     #{ post.html }
     </div>

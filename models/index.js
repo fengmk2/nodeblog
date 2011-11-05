@@ -4,7 +4,8 @@
 
 var mongoose = require('mongoose')
   , db = require('../config').db_options;
-require('./post'), require('./user'), require('./comment');
+require('./post'), require('./user'), require('./comment')
+  , require('./tag');
 
 var uri = 'mongodb://';
 if(db.user && db.password) {
@@ -28,5 +29,6 @@ mongoose.connect(uri, function(err) {
 });
 
 exports.Post = mongoose.model('Post');
+exports.Tag = mongoose.model('Tag');
 exports.User = mongoose.model('User');
 exports.Comment = mongoose.model('Comment');
