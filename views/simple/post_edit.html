@@ -12,7 +12,7 @@
     </div> 
     <input style="display: block; clear: both; width: 100%; margin-bottom: 20px;" 
         id="title" name="title" type="text" value="${ post.title || '' }" /> 
-    <label for="bookmark_selection" style="float: left;">正文:</label> 
+    <label for="bookmark_selection" style="float: left;">正文: </label> 
     <input type="checkbox" <?js if(post.is_markdown) { ?>checked="checked"<?js } ?> id="markdown_cb" name="markdown_cb" /><label for="markdown_cb">Markdown</label> 
     |
     <input type="checkbox" <?js if(post.public) { ?>checked="checked"<?js } ?> id="public_cb" name="public_cb" /><label for="public_cb">Public</label> 
@@ -24,6 +24,7 @@
         (<a href="https://github.com/github/github-flavored-markdown/blob/gh-pages/index.md" target="_blank">Markdown</a> or HTML)
     </div> 
     <textarea style="display: block; clear: both; width: 100%; height: 45em; margin-bottom: 20px;" id="content" name="content">#{ post.content || '' }</textarea> 
+    <label for="tags">标签: </label><input name="tags" id="tags" type="text" value="${ post.tags.join(',') }"/>
     <div style="text-align: center;"> 
         <input id="submit" type="submit" style="width: 100px; height: 40px; font-size: 18px;" value="提 交"/> 
     </div> 

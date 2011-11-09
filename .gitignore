@@ -2,4 +2,4 @@
 data/
 .project
 .nodeblog.sessions
-
+*.log

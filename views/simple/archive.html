@@ -6,13 +6,10 @@
     <div class="tag"><span class="name">标签: </span>
         <?js 
         tags= post.tags;
-        for(var j=0, len=tags.length; j<len; j++) {
+        for(var j=0, jj=tags.length; j<jj; j++) {
         ?>
-        <a href="/tag/#{tags[i]}">${tags[j]}</a>
+        <a href="/tag/#{tags[j]}">${tags[j]}</a>
         <?js } ?>
-    </div>
-    <div class="post_content">
-    #{ post.html }
     </div>
     <p>
         <?js if(post.author) { ?>

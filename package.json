@@ -1,0 +1,16 @@
+{ "name" : "nodeblog"
+, "version" : "0.0.1"
+, "description" : "A packaged foo fooer for fooing foos"
+, "main" : "foo.js"
+, "dependencies" :
+  { 
+    "express": "*"
+  , "express-resource" : "*"
+  , "mongoose" : "*"
+  , "tenjin" : "*"
+  , "weibo" : "*"
+  , "metaweblog" : "*"
+  , "tenjin" : "*"
+  , "github-flavored-markdown" : "*"
+  }
+}
