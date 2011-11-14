@@ -2,7 +2,12 @@
 var config = require('./config')
   , mongo = require('mongoskin');
 
-var dburl = config.db_options.host + ':' + config.db_options.port 
+var dburl = '';
+var uri = 'mongodb://';
+if(config.db_options.user && config.db_options.password) {
+    dburl += config.db_options.user + ':' + config.db_options.password + '@';
+}
+dburl += config.db_options.host + ':' + config.db_options.port 
     + '/' + config.db_options.database;
 var db = module.exports = mongo.db(dburl);
 db.ObjectID = db.db.bson_serializer.ObjectID;
