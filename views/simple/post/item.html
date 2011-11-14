@@ -79,6 +79,7 @@ function delete_comment(id) {
     var comments = locals.comments || [];
     for(var i = 0, l = comments.length; i < l; i++) { 
         var comment = comments[i];
+        comment.user_info = comment.user_info || {};
     %>
     <div id="comment_<%- comment._id %>" class="comment">
     <p>
