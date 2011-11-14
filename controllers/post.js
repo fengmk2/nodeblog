@@ -188,7 +188,7 @@ function sync_weblog(metaweblog, post, callback) {
 		var weblog_post = {
 			dateCreated: post.create_at
 		  , title: post.title
-		  , description: post.content
+		  , description: post.is_markdown ? utils.markdown(post.content) : post.content
 		};
 		if(post.weblog_post) { // update
 			weblog.editPost(post.weblog_post, metaweblog.username, metaweblog.password, weblog_post, post.public, callback);

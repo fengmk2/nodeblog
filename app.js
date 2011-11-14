@@ -11,7 +11,7 @@ var connect = require('connect')
   , post = require('./controllers/post')
   , comment = require('./controllers/comment')
   , config = require('./config')
-  , filters = require('./lib/filters')
+  , utils = require('./lib/utils')
   , Store = require('./lib/session_store')
   , db = require('./db');
 
@@ -31,7 +31,7 @@ var app = connect(
     , cache: false
     , helpers: {
         config: config
-      , markdown: filters.markdown
+      , markdown: utils.markdown
     }
   })
 );
