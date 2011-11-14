@@ -1,34 +1,40 @@
-<?js for(var i = 0, len = it.posts.length; i < len; i++) { 
-    var post = it.posts[i];
-?>
+<% 
+var current_user = request.session.user;
+for(var i = 0, len = posts.length; i < len; i++) { 
+    var post = posts[i];
+%>
 <div class="extras_section"> 
-    <h2><a href="/post/#{ post.id }">${ post.title }</a></h2> 
-    <div class="tag"><span class="name">标签: </span>
-        <?js 
-        tags= post.tags;
-        for(var j=0, len=tags.length; j<len; j++) {
-        ?>
-        <a href="/tag/#{tags[i]}">${tags[j]}</a>
-        <?js } ?>
-    </div>
+    <h2><a href="/post/<%- post._id %>"><%= post.title %></a></h2> 
     <div class="post_content">
-    #{ post.html }
+    <%- post.is_markdown ? markdown(post.content) : post.content %>
     </div>
+    <% if(post.tags && post.tags.length > 0) { %>
+    <div class="tag"><span class="name">标签: </span>
+        <%
+        var tags = post.tags;
+        for(var j = 0, jl = tags.length; j < jl; j++) {
+        %>
+        <a href="/tag/<%= tags[j] %>"><%= tags[j] %></a>
+        <% } %>
+    </div>
+    <% } %>
     <p>
-        <?js if(post.author) { ?>
-        <a href="#{ post.author.t_url }">
-           <img style="width: 25px; height: 25px;" src="#{ post.author.profile_image_url }" />
-           @${ post.author.screen_name }
+        <% if(post.author) { %>
+        <a href="<%- post.author.t_url %>">
+           <img style="width: 25px; height: 25px;" src="<%- post.author.profile_image_url %>" />
+           @<%= post.author.screen_name %>
         </a>
-        <?js } ?>
-        Post at #{ post.create_at.format() }
+        <% } %>
+        <% if(post.create_at) { %>
+        Post at <%- post.create_at.format() %>
+        <% } %>
         <span style="color: #ccc;">&bull;</span>
-        <?js if(it.current_user && (it.current_user.is_admin || it.current_user.uid === post.author.uid)) { ?>
-        <a href="/post/#{ post.id }/edit">编辑</a>
+        <% if(current_user && (current_user.is_admin || current_user.uid === post.author.uid)) { %>
+        <a href="/post/<%- post._id %>/edit">编辑</a>
         <span style="color: #ccc;">&bull;</span>
-        <a href="javascript:delete_post('#{ post.id }');">删除</a>
-        <?js } ?>
+        <a href="javascript:delete_post('<%- post._id %>');">删除</a>
+        <% } %>
     </p>
 </div> 
-<?js } ?>
+<% } %>
 

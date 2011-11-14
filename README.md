@@ -1,4 +1,4 @@
-# A blog base on nodejs.
+# A blog base on nodejs. Demo: http://nodeblog.org, http://nodeblog.cnodejs.net
 
 ## Features
 
@@ -15,44 +15,21 @@
 
 ## Requirements
 
- * [libxml2](http://www.xmlsoft.org/), libxml2-devel
  * [node.js](http://nodejs.org/)
- * v8 (comes bundled with node, no need to install)
- * [scons](http://www.scons.org/) (for building)
  * [mongodb](http://www.mongodb.org/)
 
 ### Ubuntu
     
-    $ sudo apt-get install libxml2 libxml2-dev scons mongodb
+    $ sudo apt-get install mongodb
 
 ### CentOS
 
-    $ sudo yum install libxml2 libxml2-devel 
-    
-    # install scons
-    $ wget http://prdownloads.sourceforge.net/scons/scons-2.1.0.alpha.20101125.tar.gz
-    $ cd scons-2.1.0.alpha.20101125
-    $ sudo python setup.py install
-    
     # install mongodb
     # see: http://www.mongodb.org/display/DOCS/CentOS+and+Fedora+Packages
 
-
-install libxmljs on no.de: http://discuss.joyent.com/viewtopic.php?pid=225354#p225354
-
-    Next: tell scons to import your external environment. This allows it to use your path.
-    Change line 56 from:
-    Code:
-    env = Environment(BUILDERS = {'Test' : testBuilder})
-    
-    to:
-    Code:
-    env = Environment(ENV = os.environ, BUILDERS = {'Test' : testBuilder})
-
-    
 ## Node Modules Install
 
-    $ sudo npm install express express-resource tenjin weibo metaweblog mongoose github-flavored-markdown
+    $ sudo npm install connect ejs weibo metaweblog mongoskin github-flavored-markdown
 
 ## Install NodeBlog
     
@@ -70,4 +47,8 @@ install libxmljs on no.de: http://discuss.joyent.com/viewtopic.php?pid=225354#p2
 
 ## Snapshot
 
- 
+![Index](http://ww1.sinaimg.cn/large/6cfc7910jw1dn1p7j7demj.jpg)
+![Settings](http://ww1.sinaimg.cn/large/6cfc7910jw1dn1p8enjrmj.jpg)
+![new post](http://ww3.sinaimg.cn/large/6cfc7910jw1dn1p9wmumkj.jpg)
+![comments](http://ww2.sinaimg.cn/large/6cfc7910jw1dn1pbjnfeij.jpg)
+

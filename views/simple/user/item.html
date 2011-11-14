@@ -1,0 +1,30 @@
+<div class="extras_section">
+<%
+var current_user = request.session.user;
+%>
+    <h2>关联博客设置</h2>
+    <form action="/user/<%- current_user.uid %>" method="post">
+        <h3>MetaWeblog API</h3>
+        <label for="metaweblog_url">URL:</label>
+        <input type="text" id="metaweblog_url" name="metaweblog_url" value="<%- metaweblog.url || '' %>"
+           style="display: block; clear: both; width: 100%; margin-bottom: 20px;" />
+        <label for="metaweblog_username">UserName:</label>
+        <input type="text" id="metaweblog_username" name="metaweblog_username" value="<%- metaweblog.username || '' %>" />
+        <label for="metaweblog_password">Password:</label>
+        <input type="password" id="metaweblog_password" name="metaweblog_password" value="<%- metaweblog.password || '' %>" />
+        <% if(metaweblog.bloginfo) { %>
+        <div style="margin-top:20px;">
+        <label for="">BlogName:</label>
+        <a href="<%- metaweblog.bloginfo.url %>" target="_blank"><%= metaweblog.bloginfo.blogName %></a>
+        </div>
+        <% } 
+        if(metaweblog.error) { %>
+        <div style="margin-top:20px;">
+        <label for="">Error:</label><%= metaweblog.error %>
+        </div>
+        <% } %>
+        <div style="text-align: center; margin-top:20px;"> 
+            <input id="submit" type="submit" style="width: 100px; height: 40px; font-size: 18px;" value="保 存" /> 
+        </div> 
+    </form>
+</div> 

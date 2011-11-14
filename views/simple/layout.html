@@ -1,31 +1,31 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html> 
 <head> 
-    <title><?js if(it.post) { ?> ${it.post.title} - <?js } ?>#{ it.config.site_name }</title> 
-    <meta name="description" content="A simple blog."/> 
-    <meta name="viewport" content="width=770"/> 
-    <link rel="icon" href="/favicon.ico"/> 
-    <link rel="stylesheet" href="/simple/css/main.css"/>
-    <script src="/js/jquery-1.5.2.min.js"></script>
+    <title><% if(locals.post) { %> <%= post.title %> - <% } %><%- config.site_name %></title> 
+    <meta name="description" content="A simple blog." /> 
+    <meta name="viewport" content="width=770" /> 
+    <link rel="icon" href="/favicon.ico" /> 
+    <link rel="stylesheet" href="/simple/css/main.css" />
     <link type="text/css" rel="stylesheet" href="/css/prettify.css" /> 
+    <script src="/js/jquery-1.5.2.min.js"></script>
     <script src="/js/prettify.js"></script> 
-    <script>
-    function delete_post(id) {
-        if(window.confirm('确定要删除此文章吗？')) {
-            $.post('/post/' + id + '/delete', function(result) {
-                if(result.error) {
-                    alert(result.error);
-                } else {
-                    window.location = '/';
-                }
-            });
-        }
-    };
-    $(document).ready(function(){
-    	$('pre').addClass('prettyprint');
-    	prettyPrint();
-    });
-    </script> 
+<script>
+function delete_post(id) {
+    if(window.confirm('确定要删除此文章吗？')) {
+        $.post('/post/' + id + '/delete', function(result) {
+            if(result.error) {
+                alert(result.error);
+            } else {
+                window.location = '/';
+            }
+        });
+    }
+};
+$(document).ready(function(){
+	$('pre').addClass('prettyprint');
+	prettyPrint();
+});
+</script> 
 </head>
 <body>
 <a href="http://github.com/fengmk2/nodeblog"><img style="position: absolute; top: 0; right: 0; border: 0;" src="/image/forkme.png" alt="Fork me on GitHub" /></a>
@@ -34,41 +34,44 @@
         <div id="userpanel">
 		     <a href="/">首页</a>
 		     <span style="color: #ccc;">&bull;</span> 
-		     <a href="/?format=rss">RSS</a>
-		     <?js if(it.current_user) { ?>
-			     <?js if(it.current_user.is_admin) { ?>
+		     <a href="/rss">RSS</a>
+		     <% if(request.session.user) { 
+		         var user = request.session.user;
+		     %>
+			     <% if(user.is_admin) { %>
 			     <span style="color: #ccc;">&bull;</span> 
 	             <a href="/post/new">添加文章</a> 
-	             <?js } ?>
+	             <% } %>
 		     <span style="color: #ccc;">&bull;</span> 
-		     <a href="/user/#{ it.current_user.uid }">
-                <img style="width: 25px; height: 25px;" src="#{ it.current_user.profile_image_url }" />
-                @${ it.current_user.screen_name }
+		     <a href="/user/<%- user.uid %>">
+                <img style="width: 25px; height: 25px;" src="<%- user.profile_image_url %>" />
+                @<%- user.screen_name %>
              </a>
 		     <span style="color: #ccc;">&bull;</span> 
-		     <a href="/logout">退出</a>
-		     <?js } else { ?>
+		     <a href="/user/logout">退出</a>
+		     <% } else { %>
 		     <span style="color: #ccc;">&bull;</span>
-		     <a href="/user">登录</a>
-		     <?js } ?>
+		     <a href="/user/login">登录</a>
+		     <% } %>
         </div> 
         <h1 id="logo"> 
-            <a href="/" class="logo">#{ it.config.site_name }</a> 
+            <a href="/" class="logo" title="<%- config.site_name %>"><%- config.site_name %></a> 
         </h1> 
-        <div id="description">#{ it.config.site_description }</div> 
+        <div id="description"><%- config.site_description %></div> 
     </div> 
-    <div id="content">#{ it.body }</div> 
+    <div id="content"><%- body %></div> 
     <div id="footer"> 
-        <a href="/">Index</a> &bull;
+        <a href="/">Home</a> &bull;
         <a href="/about">About</a> &bull;
         <a href="/m">Mobile</a> &bull;
         <a href="/api">API</a> 
         |
         Power by
-        <a href="http://nodejs.org" target="_blank">Nodejs</a> &bull;
-        <a href="http://expressjs.org" target="_blank">Expressjs</a> &bull;
-        <a href="http://mongoosejs.com" target="_blank">Mongoose</a> &bull;
         <a href="http://www.mongodb.org" target="_blank">Mongodb</a> &bull;
+        <a href="http://nodejs.org" target="_blank">Nodejs</a> &bull;
+        <a href="http://senchalabs.github.com/connect/" target="_blank">Connect</a> &bull;
+        <a href="https://github.com/guileen/node-mongoskin" target="_blank">Mongoskin</a> &bull;
+        <a href="https://github.com/visionmedia/ejs" target="_blank">ejs</a> &bull;
         <a href="http://jquery.com" target="_blank">jQuery</a>
         <div style="margin-top: 1em;"> 
 	        &copy;&nbsp;2011 Net4Team.
