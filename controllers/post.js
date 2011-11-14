@@ -41,7 +41,8 @@ module.exports = function(app) {
                 ep.emit('post', post);
             });
         });
-        db.comments.findItems({parent_id: req.params.id}, {sort: {_id: -1}}, function(err, comments) {
+        db.comments.findItems({parent_id: {$in: [req.params.id, db.ObjectID(req.params.id)]}}, 
+                {sort: {_id: -1}}, function(err, comments) {
             if(err) {
                 return ep.emit('error', err);
             }
