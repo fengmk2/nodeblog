@@ -4,3 +4,4 @@ data/
 .nodeblog.sessions
 *.log
 config.js
+node_modules/
