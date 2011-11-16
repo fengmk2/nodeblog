@@ -4,6 +4,15 @@ a:hover { text-decoration: underline; }
 
 img { border: 0; }
 
+table {
+	border-collapse: collapse;
+}
+
+td, th {
+    border: 1px solid #ccc;
+    padding: 5px;
+}
+
 .clear { clear: both; line-height: 1px; font-size: 1px; margin: 1px; }
 
 a.article {

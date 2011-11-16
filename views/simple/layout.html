@@ -1,9 +1,10 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html> 
-<head> 
-    <title><% if(locals.post) { %> <%= post.title %> - <% } %><%- config.site_name %></title> 
+<head>
+    <meta charset="utf-8" />
     <meta name="description" content="A simple blog." /> 
     <meta name="viewport" content="width=770" /> 
+    <title><% if(locals.post) { %> <%= post.title %> - <% } %><%- config.site_name %></title> 
     <link rel="icon" href="/favicon.ico" /> 
     <link rel="stylesheet" href="/simple/css/main.css" />
     <link type="text/css" rel="stylesheet" href="/css/prettify.css" /> 
