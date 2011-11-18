@@ -47,8 +47,12 @@
 
 ## Snapshot
 
+* Index Page
 ![Index](http://ww1.sinaimg.cn/large/6cfc7910jw1dn1p7j7demj.jpg)
+* Settings Page
 ![Settings](http://ww1.sinaimg.cn/large/6cfc7910jw1dn1p8enjrmj.jpg)
+* New Post Page
 ![new post](http://ww3.sinaimg.cn/large/6cfc7910jw1dn1p9wmumkj.jpg)
+* Comments of post
 ![comments](http://ww2.sinaimg.cn/large/6cfc7910jw1dn1pbjnfeij.jpg)
 

@@ -33,11 +33,11 @@
 
 /* Put a border around prettyprinted code snippets. */
 pre.prettyprint { 
-	padding: 5px 10px; 
+	padding: 5px; 
 	border-left: 5px solid #EEE;
-	margin-left: 10px;
+	margin-left: 5px;
     font-family: "Consolas", "Bitstream Vera Sans Mono", "Courier New", Courier, monospace;
-    font-size: 1.1em !important;
+    font-size: 1em !important;
 }
 
 /* Specify class=linenums on a pre to get line numbering */
