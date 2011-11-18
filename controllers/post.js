@@ -67,6 +67,9 @@ module.exports = function(app) {
             title: req.body.title
           , content: req.body.content
         };
+        if(post.content) {
+            post.content = post.content.trim();
+        }
         post.tags = parse_tags(req.body.tags);
         var user = req.session.user;
         post.weblog_sync = req.body.sync_cb === 'on';
@@ -93,6 +96,9 @@ module.exports = function(app) {
         _get_post_and_check_author(req, res, next, function(post) {
             post.title = req.body.title;
             post.content = req.body.content;
+            if(post.content) {
+                post.content = post.content.trim();
+            }
             post.tags = parse_tags(req.body.tags);
             post.weblog_sync = req.body.sync_cb === 'on';
             post.is_markdown = req.body.markdown_cb === 'on';

@@ -32,6 +32,7 @@ var app = connect(
     , helpers: {
         config: config
       , markdown: utils.markdown
+      , first_paragraph_markdown: utils.first_paragraph_markdown
     }
   })
 );

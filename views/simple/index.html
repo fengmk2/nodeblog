@@ -6,7 +6,8 @@ for(var i = 0, len = posts.length; i < len; i++) {
 <div class="extras_section"> 
     <h2><a href="/post/<%- post._id %>"><%= post.title %></a></h2> 
     <div class="post_content">
-    <%- post.is_markdown ? markdown(post.content) : post.content %>
+    <%- post.is_markdown ? first_paragraph_markdown(post.content) : post.content %>
+    <a href="/post/<%- post._id %>">查看全文</a>
     </div>
     <% if(post.tags && post.tags.length > 0) { %>
     <div class="tag"><span class="name">标签: </span>
