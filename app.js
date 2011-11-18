@@ -25,6 +25,7 @@ var app = connect(
     , cookie:{ path: '/', httpOnly: true, maxAge: 24 * 3600000 * 3650 } 
     , store: new Store(config.db_options)
   })
+  , connect.query()
   , user.oauth_handle
   , render({
       root: __dirname + '/views/simple'
