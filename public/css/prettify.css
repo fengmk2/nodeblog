@@ -32,12 +32,13 @@
 }
 
 /* Put a border around prettyprinted code snippets. */
-pre.prettyprint { 
+pre.prettyprint, code.prettyprint { 
 	padding: 5px; 
 	border-left: 5px solid #EEE;
 	margin-left: 5px;
     font-family: "Consolas", "Bitstream Vera Sans Mono", "Courier New", Courier, monospace;
     font-size: 1em !important;
+    display: block;
 }
 
 /* Specify class=linenums on a pre to get line numbering */
