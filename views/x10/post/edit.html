@@ -1,0 +1,47 @@
+<%  
+var post = locals.post || {}, current_user = request.session.user;
+%>
+<form action="/post<%- (post._id ? '/' + post._id : '') %>" method="post" style="width: 98%; margin: 0px auto 0px auto;"> 
+    <label for="bookmark_title" style="float: left;">Title:</label> 
+    <div style="font-size: 0.8em; font-style: italic; float: right; padding-top: 4px;"> 
+        (Title for this post)
+    </div> 
+    <input style="display: block; clear: both; width: 100%; margin-bottom: 20px;" 
+        id="title" name="title" type="text" value="<%= post.title || '' %>" /> 
+    <label for="bookmark_selection" style="float: left;">正文: </label> 
+    <input type="checkbox" <% if(post.is_markdown !== false) { %>checked="checked"<% } %> 
+        id="markdown_cb" name="markdown_cb" /><label for="markdown_cb">Markdown</label> 
+    |
+    <input type="checkbox" <% if(post.public) { %>checked="checked"<% } %> 
+        id="public_cb" name="public_cb" /><label for="public_cb">Public</label> 
+    <% if(current_user.metaweblog && current_user.metaweblog.bloginfo) { %>
+    |
+    <input type="checkbox" <% if(post.weblog_sync) { %>checked="checked"<% } %> 
+        id="sync_cb" name="sync_cb" /><label for="sync_cb">Sync to Blog</label> 
+    <% } %>
+    <div style="font-size: 0.8em; font-style: italic; float: right; padding-top: 4px;"> 
+        (<a href="https://github.com/github/github-flavored-markdown/blob/gh-pages/index.md" target="_blank">Markdown</a> or HTML)
+    </div> 
+    <textarea style="display: block; clear: both; width: 100%; height: 500px; margin-bottom: 20px;" 
+        id="postcontent" name="content"><%- post.content || '' %></textarea> 
+    <label for="tags">标签: </label>
+    <input name="tags" id="tags" type="text" value="<%= post.tags ? post.tags.join(',') : '' %>" style="width: 50%;" />
+    <div style="margin-top: 20px;"> 
+        <input id="submit" type="submit" value="提 交" style="width: 100px; height: 40px; font-size: 18px;" /> 
+    </div> 
+</form>
+<script>
+$(function() {
+    $('#postcontent').change(function() {
+        if($('#markdown_cb').attr('checked')) {
+            // check the first line if # xxx for title
+            var content = $(this).val();
+            var title = content.split('\n', 1)[0];
+            if(title && title.substring(0, 2) === '# ') {
+                $('#title').val(title.substring(2));
+                $(this).val(content.substring(title.length));
+            }
+        }
+    });
+});
+</script>

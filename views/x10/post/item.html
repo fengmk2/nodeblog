@@ -1,0 +1,119 @@
+<script>
+function delete_comment(id) {
+    $.post('/comment/' + id + '/delete', function(result) {
+        if(result.error) {
+            alert(result.error);
+        } else {
+            $('#comment_' + id).remove();
+        }
+    });
+};
+</script>
+
+<% var current_user = request.session.user; %>
+
+<div class="extras_section">
+    <h2 class="post_title"><a href="/post/<%- post._id %>"><%= post.title %></a></h2>
+    <div class="post_content">
+    <%- post.is_markdown ? markdown(post.content) : post.content %>
+    </div>
+    <% if(post.tags && post.tags.length > 0) { %>
+    <div class="tag"><span class="name">标签: </span>
+        <%
+        var tags = post.tags;
+        for(var j = 0, jl = tags.length; j < jl; j++) {
+        %>
+        <a href="/tag/<%= tags[j] %>"><%= tags[j] %></a>
+        <% } %>
+    </div>
+    <% } %>
+    <p class="post_info">
+        <% if(post.author) { %>
+        <a href="<%- post.author.t_url %>">
+           <img style="width: 25px; height: 25px;" src="<%- post.author.profile_image_url %>" />
+           @<%= post.author.screen_name %>
+        </a>
+        <% } %>
+        <% if(post.create_at) { %>
+        Post at <%- post.create_at.format() %>
+        <% } %>
+        <span style="color: #ccc;">&bull;</span>
+        <% if(current_user && (current_user.is_admin || current_user.uid === post.author.uid)) { %>
+        <a href="/post/<%- post._id %>/edit">编辑</a>
+        <span style="color: #ccc;">&bull;</span>
+        <a href="javascript:delete_post('<%- post._id %>');">删除</a>
+        <% } %>
+    </p>
+    
+    <hr/>
+    <h2 id="comment_form">Comments</h2>
+    <form action="/comment" method="post">
+    <input type="hidden" name="parent_id" value="<%- post._id %>" />
+    <p>
+        <% if(current_user) { %>
+        <a href="<%- current_user.t_url %>" target="_blank">
+           <img style="width: 25px; height: 25px;" src="<%- current_user.profile_image_url %>" />
+           @<%= current_user.screen_name %>
+        </a>
+        <br/>
+        <% } else { 
+        var comment_user = request.session.comment_user || {};
+        %>
+        <input type="text" style="width:150px;" name="name" id="comment_name" value="<%= comment_user.name || '' %>" /> Name <br/>
+        <input type="text" style="width:150px;" name="email" id="comment_email" value="<%= comment_user.email || '' %>" /> Email (private, auto get your head photo from <a href="http://www.gravatar.com/" target="_blank">gravatar.com</a>)
+        <br/>
+        <input type="text" style="width:40%;" name="site" id="comment_site" value="<%= comment_user.site || 'http://' %>" /> Home page
+        <br/>
+        <% } %>
+        <textarea rows="5" style="width:70%;" name="content" id="comment_content"></textarea>
+    </p>
+    <p>
+        <button type="submit">Comment</button>
+        <span style="font-size: 0.8em; font-style: italic; margin-left: 50px;">
+        (Support <a href="https://github.com/github/github-flavored-markdown/blob/gh-pages/index.md" target="_blank">Markdown</a>)
+        </span>
+    </p>
+    </form>
+    
+    <% 
+    var comments = locals.comments || [];
+    for(var i = 0, l = comments.length; i < l; i++) { 
+        var comment = comments[i];
+        comment.user_info = comment.user_info || {};
+    %>
+    <div id="comment_<%- comment._id %>" class="comment">
+    <p>
+        <a href="<%= comment.user_info.site || '#' %>">
+            <% if(comment.user_info.profile_image_url) { %>
+            <img style="width: 25px; height: 25px;" src="<%- comment.user_info.profile_image_url %>" />
+            <% } %>
+            @<%= comment.user_info.name || 'Anonymous' %>
+        </a>
+        comment at <%- comment.create_at.format() %>
+        <span style="color: #ccc;">&bull;</span>
+        <% if(current_user && current_user.is_admin) { %>
+        <a href="javascript:edit_comment('<%- comment._id %>');">编辑</a>
+        <span style="color: #ccc;">&bull;</span>
+        <a href="javascript:delete_comment('<%- comment._id %>');">删除</a>
+        <% } %>
+    </p>
+    <p><%- markdown(comment.content) %></p>
+    </div>
+    
+    <% } %>
+    
+</div>
+
+<script>
+$(function(){
+    var c_url = 'http://api.yongwo.de/api/s?u=';
+    c_url += document.location.href;
+    c_url += '&cb=?'
+    $.getJSON(c_url, function(data){
+        var html = '<span>Shorten URL <input class="short_url" type="text" value="' + data + '" /></span><br/>';
+        $('.post_info').prepend(html).find('.short_url').click(function() {
+            $(this).select();
+        });
+    });
+});
+</script> 

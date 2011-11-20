@@ -1,0 +1,163 @@
+@import url(base.css);
+
+body {
+  font-size:14px;
+}
+article {
+  line-height:1.5;
+}
+.page-wrap {
+  width:960px;
+  margin:0 auto;
+}
+.grid-m0s6 .main-wrap { margin-right: 240px; }
+.grid-m0s6 .col-sub { width: 230px; margin-left: -230px; }
+#main .main-wrap {
+  padding-right:20px;
+}
+.title {
+  font-family:"Microsoft YaHei", Helmet, Freesans, sans-serif;
+}
+.title-en {
+  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+}
+
+.post {
+  margin-bottom:10px;
+  padding-bottom:20px;
+} 
+  .post header h1 {
+    font-size:2.2em;
+  }
+  .post header h2 {
+    font-size:2.0em;
+  }
+
+#sidebar {
+  padding-top:10px;
+}
+#search input {
+  float:left;
+}
+.widget {
+  margin-bottom:30px;
+  overflow-x:hidden;
+}
+.widget h3 {
+  font-size:1.25em;
+  margin-bottom:10px;
+}
+/* comment
+*/
+.comments {
+  font-size:0.86em;
+}
+  .comments .avatar {
+    float:left;
+    width:60px;
+    margin-top:5px;
+  }
+  .comments .content {
+    margin-left: 70px;
+    position: relative;
+  }
+
+
+
+
+
+/*屏幕超过1440的极致享受*/
+@media screen and (min-width:1420px){
+    body{font-size:16px;}
+}
+
+/*屏幕小于1024的悲剧或者是ipad */
+@media screen and (max-width:1024px){
+    .G1,.G2,.G3,.G4,.G5,.G6,.G7{clear:both;float:none;margin:0 0 1.5em;width:100%}
+    body{
+        font: 14px/18px  Georgia,Times,"Times New Roman",serif;
+    }
+    #wrapper{
+        margin:6.375em auto 2.25em;
+        padding:0;
+        width:42em
+    }
+    .logo,nav {
+        float:none!important;
+        margin: 30px auto !important;
+    }
+    .logo h1{
+        text-align:center;
+    }
+    nav ul#nav-list li.G1{
+        width:33% !important;
+    }
+    nav ul li.G1{
+        float:left;
+    }
+    .entry img {
+        width:95%!important;
+    }
+    .post .sub-title span.entry_date{
+        position: static;
+        font-size: 1em;
+        margin: none;
+        width: auto;
+        color:#e1e1e1;
+    }
+    .csscolumns .top_post .entry {
+        column-count:1;
+        -moz-column-count:1;
+        -webkit-column-count:1;
+    }
+    .post .G7{
+        margin-left:0 !important;
+    }
+}
+/*这个范围留着备用,留空太大了*/
+@media screen and (min-width:600px) and (max-width:1024px){
+
+}
+/*横屏ipad*/
+@media screen and (max-device-width:1024px) and (width:1024px){
+  body{
+    font: 18px/18px  Georgia,Times,"Times New Roman",serif;
+  }
+}
+/*竖屏ipad*/
+@media screen and (max-device-width:1024px) and (width:768px){
+  body{
+    font: 16px/18px  Georgia,Times,"Times New Roman",serif;
+  }
+}
+/*横屏iphone */
+@media screen and (max-width:600px){
+
+  body{
+    font: 14px/18px  Georgia,Times,"Times New Roman",serif;
+  }
+  #wrapper{
+    margin-bottom:1.125em;
+    margin-top:0;
+    width:33em
+  }
+  #copyright {
+    padding-top: 55px;
+  }
+  #copyright p {
+    text-align: center;
+  }
+}
+/*屏幕小与480的 或者  iphone竖屏*/
+@media screen and (max-width:479px){
+  #wrapper{width:22em}
+  body{
+    font: 14px/18px  Georgia,Times,"Times New Roman",serif;
+  }
+  nav ul#nav-list li.G1 a{
+    font-size:1.4em;
+  }
+  .post .post-title a{
+    font-size:0.85em;
+  }
+}

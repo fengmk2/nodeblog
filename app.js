@@ -16,6 +16,7 @@ var connect = require('connect')
   , Store = require('./lib/session_store')
   , db = require('./db');
 
+if (!config.view_theme) config.view_theme='simple';
 var app = connect(
     connect.static(__dirname + '/public')
   , connect.logger()
@@ -29,8 +30,8 @@ var app = connect(
   , connect.query()
   , user.oauth_handle
   , render({
-      root: __dirname + '/views/simple'
-    , cache: false
+      root: __dirname + '/views/'+config.view_theme
+    , cache: config.view_cache
     , helpers: {
         config: config
       , markdown: utils.markdown

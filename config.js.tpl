@@ -27,6 +27,8 @@ exports.weibo_appkeys = {
 
 exports.admins = ['tsina:1640328892'];
 
+exports.view_theme = 'simple';
+exports.view_cache = false;
 exports.site_name = 'Node Blog Engine';
 exports.site_url = 'http://nodeblog.org';
 exports.site_description = '<a target="_blank" href="https://github.com/fengmk2/nodeblog/">Nodeblog</a> is a simple blog system base on <a href="http://nodejs.org" target="_blank">Nodejs</a>.';

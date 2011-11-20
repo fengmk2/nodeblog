@@ -1,0 +1,9 @@
+<ul>
+<?js for (var i=0, len= it.tags.length; i<len; i++) {
+  var tag= it.tags[i];
+?>
+  <li>
+    <a href="/tag/#{tag.name}">${tag.name}</a>
+  </li>
+<?js } ?>
+</ul>

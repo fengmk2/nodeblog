@@ -1,0 +1,47 @@
+<% for(var i = 0, len = posts.length; i < len; i++) { 
+    var post = posts[i];
+%>
+    <article class="post"> 
+      <header class="clearfix">
+        <h2 class="title"><a href="/post/<%- post._id %>"><%= post.title %></a></h2> 
+        <div class="updated">       
+          <span class="m-d">11/11</span>
+          <span class="y">2011</span>
+        </div>
+        <div class="meta">
+          <span class="avatar">
+            by <a href="<%- post.author.t_url %>">
+               <img width="25" height="25" src="<%- post.author.profile_image_url %>"  />
+               <%= post.author.screen_name %>
+            </a>
+          </span>
+          <span class="admin"><a href="/post/<%- post._id %>/edit">编辑</a></span>
+          <span class="admin"><a href="javascript:delete_post('<%- post._id %>');">删除</a></span>
+
+          <div class="tags clearfix">
+            <span class="name">tags </span>
+          <%
+          var tags = post.tags;
+          for(var j = 0, jl = tags.length; j < jl; j++) {
+          %>
+            <a href="/tag/<%= tags[j] %>"><%= tags[j] %></a>
+          <% } %>
+          </div>
+        </div>
+      </header>
+      <div class="content">
+        <div class="wrap clearfix">
+          <%- post.is_markdown ? first_paragraph_markdown(post.content) : post.content %>
+          <a href="/post/<%- post._id %>" class="more">继续阅读...</a>
+        </div>
+      </div>
+    </article> 
+<% } %>
+
+    <div class="page"><% if(page > 1) { %>
+      <a href="/?page=<%- page - 1 %>">上一页</a>
+      <% } %>
+      <% if(posts.length > 0) { %>
+      <a href="/?page=<%- page + 1 %>">下一页</a>
+      <% } %>
+      </div>

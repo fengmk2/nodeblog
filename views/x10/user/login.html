@@ -1,0 +1,9 @@
+<div class="extras_section">
+<h2>微博登录</h2> 
+<% 
+for(var type in config.weibo_appkeys) { 
+    var name = config.weibo_appkeys[type][2];
+%>
+<a title="<%- name %>" href="/oauth?blogtype=<%- type %>"><%- name %></a>
+<% } %>
+</div> 
