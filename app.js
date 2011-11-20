@@ -10,6 +10,7 @@ var connect = require('connect')
   , user = require('./controllers/user')
   , post = require('./controllers/post')
   , comment = require('./controllers/comment')
+  , tag = require('./controllers/tag')
   , config = require('./config')
   , utils = require('./lib/utils')
   , Store = require('./lib/session_store')
@@ -41,4 +42,6 @@ app.use('/', connect.router(blog));
 app.use('/user', connect.router(user));
 app.use('/post', connect.router(post));
 app.use('/comment', connect.router(comment));
-app.listen(3000);
+app.use('/tag', connect.router(tag));
+app.listen(config.PORT);
+console.log("nodeblog started: http://localhost:" + config.PORT);

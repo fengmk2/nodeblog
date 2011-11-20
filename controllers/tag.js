@@ -2,20 +2,32 @@
  * Module dependencies.
  */
 
-var models = require('../models')
-  , Tag = models.Tag
-  , Post = models.Post
-  , detailPosts = require('./blog').detailPosts
-  , util= require('util')
-  ;
 
-/*
-exports.load= function(name, callback) {
-  this.name=name;
-  console.log(callback.toString());
+var db = require('../db')
+  , EventProxy = require('../lib/eventproxy').EventProxy
+  , utils = require('../lib/utils')
+  , MetaWeblog = require('metaweblog').MetaWeblog;
+
+module.exports = function(app) {
+  app.get('/:tagName', function(req, res, next) {
+    var count = 20, page = parseInt(req.query.page || 1);
+    if(isNaN(page)) {
+        page = 1;
+    }
+    var options = {sort: {_id: -1}, limit: count};
+    if(page > 1) {
+        options.skip = (page - 1) * count;
+    }
+    db.posts.list({tags: req.params.tagName}, options, function(err, posts) {
+        posts= posts || [];
+        res.render('index.html', {
+          posts: posts
+        , page: page
+      });
+    });
+  });
 }
-*/
-
+/*
 exports.index = function(req, res, next) {
   Tag.where().find(function(err, tags) {
     if (err) return next(err);
@@ -41,3 +53,4 @@ exports.show= function(req, res, next) {
     });
   });
 }
+*/
