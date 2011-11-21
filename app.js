@@ -31,7 +31,7 @@ var app = connect(
   , user.oauth_handle
   , render({
       root: __dirname + '/views/'+config.view_theme
-    , cache: config.view_cache
+    , cache: config.view_cache || false
     , helpers: {
         config: config
       , markdown: utils.markdown
@@ -44,5 +44,12 @@ app.use('/user', connect.router(user));
 app.use('/post', connect.router(post));
 app.use('/comment', connect.router(comment));
 app.use('/tag', connect.router(tag));
+app.use(connect.router(function(app) {
+  app.get('*', function(req, res, next) {
+    res.statusCode=404;
+    res.render('404.html');
+  });
+})
+);
 app.listen(config.PORT);
 console.log("nodeblog started: http://localhost:" + config.PORT);

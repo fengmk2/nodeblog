@@ -20,7 +20,7 @@ module.exports = function(app) {
     }
     db.posts.list({tags: req.params.tagName}, options, function(err, posts) {
         posts= posts || [];
-        res.render('index.html', {
+        res.render('archive.html', {
           posts: posts
         , page: page
       });
