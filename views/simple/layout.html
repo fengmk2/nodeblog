@@ -1,13 +1,14 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 <html> 
 <head>
     <meta charset="utf-8" />
-    <meta name="description" content="A simple blog." /> 
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="description" content="A simple blog base on nodejs." /> 
     <meta name="viewport" content="width=770" /> 
     <title><% if(locals.post) { %> <%= post.title %> - <% } %><%- config.site_name %></title> 
     <link rel="icon" href="/favicon.ico" /> 
     <link rel="stylesheet" href="/simple/css/main.css" />
-    <link type="text/css" rel="stylesheet" href="/css/prettify.css" /> 
+    <link rel="stylesheet" href="/css/prettify.css" /> 
     <script src="/js/jquery-1.5.2.min.js"></script>
     <script src="/js/prettify.js"></script> 
 <script>
@@ -23,7 +24,7 @@ function delete_post(id) {
     }
 };
 $(document).ready(function(){
-	$('pre').addClass('prettyprint');
+	$('code').addClass('prettyprint');
 	prettyPrint();
 });
 </script> 
