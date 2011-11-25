@@ -30,8 +30,14 @@ module.exports = function(app) {
             if(err) {
                 return ep.emit('error', err);
             }
+            if (!post) {
+                return ep.emit('error');
+            }
             if(typeof post.author_id !== 'string') {
                 post.author_id = post.author_id.toString();
+            }
+            if (!post.author_id) {
+                return ep.emit('error');
             }
             db.users.findById(post.author_id, function(err, user) {
                 if(err) {

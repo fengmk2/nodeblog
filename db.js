@@ -1,4 +1,3 @@
-
 var config = require('./config')
   , mongo = require('mongoskin');
 
@@ -47,6 +46,8 @@ db.bind('users', {
     
 });
 db.users.ensureIndex({uid: 1}, {unique: true}, function() {});
+//tag用
+db.posts.ensureIndex({tags: 1}, {}, function() {});
 
 db.bind('comments', {
     
