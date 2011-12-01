@@ -531,7 +531,7 @@ body {
 }
 
 div.body {
-     width: 750px;
+     width: 800px;
      margin: 0px auto 0px auto;
      position: relative;
 }
@@ -804,6 +804,6 @@ h2.post_title {
 .post_content h2 {
     font-size: 120%!important;
 	border: 0!important;
-	border-top: 4px solid #E0E0E0!important;
+	border-top: 4px solid #eee!important;
 	padding-top: .5em!important;
 }
