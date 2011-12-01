@@ -10,11 +10,13 @@ var connect = require('connect')
   , user = require('./controllers/user')
   , post = require('./controllers/post')
   , comment = require('./controllers/comment')
+  , tag = require('./controllers/tag')
   , config = require('./config')
   , utils = require('./lib/utils')
   , Store = require('./lib/session_store')
   , db = require('./db');
 
+if (!config.view_theme) config.view_theme='simple';
 var app = connect(
     connect.static(__dirname + '/public')
   , connect.logger()
@@ -28,8 +30,8 @@ var app = connect(
   , connect.query()
   , user.oauth_handle
   , render({
-      root: __dirname + '/views/simple'
-    , cache: false
+      root: __dirname + '/views/'+config.view_theme
+    , cache: config.view_cache || false
     , helpers: {
         config: config
       , markdown: utils.markdown
@@ -41,4 +43,13 @@ app.use('/', connect.router(blog));
 app.use('/user', connect.router(user));
 app.use('/post', connect.router(post));
 app.use('/comment', connect.router(comment));
-app.listen(3000);
+app.use('/tag', connect.router(tag));
+app.use(connect.router(function(app) {
+  app.get('*', function(req, res, next) {
+    res.statusCode=404;
+    res.render('404.html');
+  });
+})
+);
+app.listen(config.PORT);
+console.log("nodeblog started: http://localhost:" + config.PORT);
