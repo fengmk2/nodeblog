@@ -43,6 +43,7 @@ pre.prettyprint, code.prettyprint {
   padding: 10px;
   background-color: #fff;
   border: 2px dashed #eee;
+  border-radius: 10px;
 }
 
 /* Specify class=linenums on a pre to get line numbering */
