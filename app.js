@@ -1,7 +1,7 @@
 /**
  * NodeBlog APP
  */
-
+ 
 require('./public/js/date.format');
 
 var connect = require('connect')

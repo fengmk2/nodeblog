@@ -1,3 +1,0 @@
-[submodule "support/express-resource"]
-	path = support/express-resource
-	url = git://github.com/fengmk2/express-resource.git

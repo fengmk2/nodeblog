@@ -797,13 +797,27 @@ a.reveal {
 }
 
 h2.post_title {
-    font-size: 150%!important;
-    border: 0!important;
+  font-size: 150%!important;
+  border: 0!important;
 }
 
 .post_content h2 {
-    font-size: 120%!important;
+  font-size: 120%!important;
   border: 0!important;
   border-top: 4px solid #eee!important;
   padding-top: .5em!important;
+}
+
+blockquote {
+  margin: 1em 0!important;
+  border-left: 5px solid #DDD!important;
+  padding-left: .6em!important;
+}
+
+p code {
+  font-size: 12px!important;
+  background-color: ghostWhite!important;
+  color: #444!important;
+  padding: 0 .2em!important;
+  border: 1px solid #DEDEDE!important;
 }

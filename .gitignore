@@ -5,6 +5,3 @@ data/
 *.log
 config.js
 node_modules/
-
-_doc/
-~*

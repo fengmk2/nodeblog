@@ -1,15 +1,17 @@
 { 
-    "name": "nodeblog"
-  , "version": "0.2.1"
-  , "description": "Node Blog Engine, a simple blog system."
-  , "keywords": ["blog", "wordpress", "blogengine", "博客", "部落格"]
-  , "author": ["fengmk2<fengmk2@gmail.com> (http://fengmk2.cnblogs.com)", "@zolunx10 (https://github.com/zolunx10)"]
-  , "main": "app.js"
-  , "dependencies": { 
-        "connect": ">= 1.5.2"
-      , "ejs": "*"
-      , "weibo": "*"
-      , "metaweblog": "*"
-      , "github-flavored-markdown": "*"
-    }
+  "name": "nodeblog", 
+  "version": "0.2.2", 
+  "description": "Node Blog Engine, a simple blog system.", 
+  "keywords": ["blog", "wordpress", "blogengine", "博客", "部落格"], 
+  "author": [
+    "fengmk2<fengmk2@gmail.com> (http://fengmk2.cnblogs.com)", 
+    "@zolunx10 (https://github.com/zolunx10)"
+  ], 
+  "main": "app.js", 
+  "dependencies": { 
+    "connect": ">= 1.5.2", 
+    "ejs": ">=0.6.1", 
+    "weibo": ">=0.3.0", 
+    "metaweblog": ">=0.2.0"
+  }
 }

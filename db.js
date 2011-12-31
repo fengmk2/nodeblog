@@ -21,6 +21,7 @@ db.bind('posts', {
                     var author_id = typeof post.author_id === 'string' ? db.ObjectID(post.author_id) : post.author_id;
                     ids.push(author_id);
                 }
+                
                 db.users.findItems({_id: {$in: ids}}, function(err, users) {
                     if(users) {
                         var map = {};
