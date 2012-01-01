@@ -12,6 +12,7 @@
     "connect": ">= 1.5.2", 
     "ejs": ">=0.6.1", 
     "weibo": ">=0.3.0", 
-    "metaweblog": ">=0.2.0"
+    "metaweblog": ">=0.2.0",
+    "mongoskin": ">=0.2.2"
   }
 }

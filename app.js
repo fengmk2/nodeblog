@@ -16,18 +16,21 @@ var connect = require('connect')
   , Store = require('./lib/session_store')
   , db = require('./db');
 
-if (!config.view_theme) config.view_theme='simple';
+if (!config.view_theme) {
+  config.view_theme = 'simple';
+}
+var qsOptions = { limit: 100 };
 var app = connect(
     connect.static(__dirname + '/public')
   , connect.logger()
   , connect.cookieParser()
-  , connect.bodyParser()
+  , connect.bodyParser(qsOptions)
   , connect.session({ 
       secret: config.session_secret
     , cookie:{ path: '/', httpOnly: true, maxAge: 24 * 3600000 * 3650 } 
     , store: new Store(config.db_options)
   })
-  , connect.query()
+  , connect.query(qsOptions)
   , user.oauth_handle
   , render({
       root: __dirname + '/views/'+config.view_theme
