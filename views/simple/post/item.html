@@ -1,15 +1,3 @@
-<script>
-function delete_comment(id) {
-    $.post('/comment/' + id + '/delete', function(result) {
-        if(result.error) {
-            alert(result.error);
-        } else {
-            $('#comment_' + id).remove();
-        }
-    });
-};
-</script>
-
 <% var current_user = request.session.user; %>
 
 <div class="extras_section">
@@ -46,61 +34,21 @@ function delete_comment(id) {
     </p>
     
     <hr/>
-    <h2 id="comment_form">Comments</h2>
-    <form action="/comment" method="post">
-    <input type="hidden" name="parent_id" value="<%- post._id %>" />
-    <p>
-        <% if(current_user) { %>
-        <a href="<%- current_user.t_url %>" target="_blank">
-           <img style="width: 25px; height: 25px;" src="<%- current_user.profile_image_url %>" />
-           @<%= current_user.screen_name %>
-        </a>
-        <br/>
-        <% } else { 
-        var comment_user = request.session.comment_user || {};
-        %>
-        <input type="text" style="width:150px;" name="name" id="comment_name" value="<%= comment_user.name || '' %>" /> Name <br/>
-        <input type="text" style="width:150px;" name="email" id="comment_email" value="<%= comment_user.email || '' %>" /> Email (private, auto get your head photo from <a href="http://www.gravatar.com/" target="_blank">gravatar.com</a>)
-        <br/>
-        <input type="text" style="width:40%;" name="site" id="comment_site" value="<%= comment_user.site || 'http://' %>" /> Home page
-        <br/>
-        <% } %>
-        <textarea rows="5" style="width:70%;" name="content" id="comment_content"></textarea>
-    </p>
-    <p>
-        <button type="submit">Comment</button>
-        <span style="font-size: 0.8em; font-style: italic; margin-left: 50px;">
-        (Support <a href="https://github.com/github/github-flavored-markdown/blob/gh-pages/index.md" target="_blank">Markdown</a>)
-        </span>
-    </p>
-    </form>
-    
-    <% 
-    var comments = locals.comments || [];
-    for(var i = 0, l = comments.length; i < l; i++) { 
-        var comment = comments[i];
-        comment.user_info = comment.user_info || {};
-    %>
-    <div id="comment_<%- comment._id %>" class="comment">
-    <p>
-        <a href="<%= comment.user_info.site || '#' %>">
-            <% if(comment.user_info.profile_image_url) { %>
-            <img style="width: 25px; height: 25px;" src="<%- comment.user_info.profile_image_url %>" />
-            <% } %>
-            @<%= comment.user_info.name || 'Anonymous' %>
-        </a>
-        comment at <%- comment.create_at.format() %>
-        <span style="color: #ccc;">&bull;</span>
-        <% if(current_user && current_user.is_admin) { %>
-        <a href="javascript:edit_comment('<%- comment._id %>');">编辑</a>
-        <span style="color: #ccc;">&bull;</span>
-        <a href="javascript:delete_comment('<%- comment._id %>');">删除</a>
-        <% } %>
-    </p>
-    <p><%- markdown(comment.content) %></p>
-    </div>
-    
-    <% } %>
+
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'nodeblog'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
     
 </div>
 
