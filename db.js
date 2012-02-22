@@ -1,9 +1,9 @@
-var config = require('./config')
-  , mongo = require('mongoskin');
+var config = require('./config');
+var mongo = require('mongoskin');
 
 var dburl = '';
 var uri = 'mongodb://';
-if(config.db_options.user && config.db_options.password) {
+if (config.db_options.user && config.db_options.password) {
     dburl += config.db_options.user + ':' + config.db_options.password + '@';
 }
 dburl += config.db_options.host + ':' + config.db_options.port 
@@ -43,13 +43,9 @@ db.bind('posts', {
     }
 });
 
-db.bind('users', {
-    
-});
+db.bind('users');
 db.users.ensureIndex({uid: 1}, {unique: true}, function() {});
 //tag用
 db.posts.ensureIndex({tags: 1}, {}, function() {});
 
-db.bind('comments', {
-    
-});
+db.bind('comments');

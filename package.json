@@ -1,6 +1,6 @@
 { 
   "name": "nodeblog", 
-  "version": "0.2.2", 
+  "version": "0.2.3", 
   "description": "Node Blog Engine, a simple blog system.", 
   "keywords": ["blog", "wordpress", "blogengine", "博客", "部落格"], 
   "author": [
@@ -9,7 +9,8 @@
   ], 
   "main": "app.js", 
   "dependencies": { 
-    "connect": ">= 1.5.2", 
+    "connect": ">= 1.5.2",
+    "connect-render": ">=0.1.0", 
     "ejs": ">=0.6.1", 
     "weibo": ">=0.3.0", 
     "metaweblog": ">=0.2.0",
