@@ -1,19 +1,31 @@
-{ 
-  "name": "nodeblog", 
-  "version": "0.2.3", 
-  "description": "Node Blog Engine, a simple blog system.", 
-  "keywords": ["blog", "wordpress", "blogengine", "博客", "部落格"], 
+{
+  "name": "nodeblog",
+  "version": "0.2.3",
+  "description": "Node Blog Engine, a simple blog system.",
+  "keywords": [
+    "blog",
+    "wordpress",
+    "blogengine",
+    "博客",
+    "部落格"
+  ],
   "author": [
-    "fengmk2<fengmk2@gmail.com> (http://fengmk2.cnblogs.com)", 
+    "fengmk2<fengmk2@gmail.com> (http://fengmk2.cnblogs.com)",
     "@zolunx10 (https://github.com/zolunx10)"
-  ], 
-  "main": "app.js", 
-  "dependencies": { 
+  ],
+  "main": "app.js",
+  "dependencies": {
     "connect": ">= 1.5.2",
-    "connect-render": ">=0.1.0", 
-    "ejs": ">=0.6.1", 
-    "weibo": ">=0.3.0", 
+    "connect-render": ">=0.1.0",
+    "ejs": ">=0.6.1",
+    "weibo": ">=0.3.0",
     "metaweblog": ">=0.2.0",
-    "mongoskin": ">=0.2.2"
-  }
+    "mongoskin": ">=0.2.2",
+    "snyk": "^1.231.0"
+  },
+  "scripts": {
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
+  },
+  "snyk": true
 }
